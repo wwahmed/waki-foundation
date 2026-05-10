@@ -1,0 +1,19 @@
+/*
+  Access-Control-Allow-Origin: *
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+
+/waki-themes/dist/*
+  Cache-Control: public, max-age=300, s-maxage=86400, stale-while-revalidate=604800
+
+/waki-themes/*.json
+  Cache-Control: public, max-age=300, s-maxage=86400, stale-while-revalidate=604800
+
+/waki-shell/dist/*
+  Cache-Control: public, max-age=300, s-maxage=86400, stale-while-revalidate=604800
+
+/waki-shell/*.json
+  Cache-Control: public, max-age=300, s-maxage=86400, stale-while-revalidate=604800
+
+/index.html
+  Cache-Control: public, max-age=60, s-maxage=300
