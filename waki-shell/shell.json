@@ -1,0 +1,286 @@
+{
+  "version": "0.3.0",
+  "gitSha": "0be5578",
+  "builtAt": "2026-05-18T03:50:31.571Z",
+  "config": {
+    "breakpoints": {
+      "sm": 640,
+      "md": 768,
+      "lg": 1024,
+      "xl": 1280,
+      "mobileNavBelow": 768
+    },
+    "header": {
+      "heightTw": "h-14",
+      "heightPx": 56,
+      "zIndex": 30,
+      "paddingX": {
+        "mobile": "px-2",
+        "desktop": "sm:px-3"
+      },
+      "brandGap": "gap-2.5",
+      "actionsGap": "gap-1 sm:gap-2"
+    },
+    "bottomTabNav": {
+      "hideAt": "md",
+      "zIndex": 30,
+      "maxTabs": 5,
+      "respectsSafeArea": true
+    },
+    "sidebar": {
+      "widthTw": "md:w-56",
+      "widthPx": 224,
+      "hideBelow": "md",
+      "collapsibleAt": "lg"
+    },
+    "splash": {
+      "minDurationMs": 700,
+      "hardTimeoutMs": 4000,
+      "fadeOutMs": 280,
+      "zIndex": 100
+    },
+    "updateBanner": {
+      "idleAutoRefreshMs": 30000,
+      "postRefreshCooldownMs": 60000,
+      "pollIntervalMs": 60000,
+      "zIndex": 55
+    },
+    "animations": {
+      "fadeIn": {
+        "className": "animate-fadeIn",
+        "durationMs": 180,
+        "easing": "ease-out"
+      },
+      "fadeInUp": {
+        "className": "animate-fadeInUp",
+        "durationMs": 200,
+        "easing": "ease-out"
+      },
+      "modalIn": {
+        "className": "animate-modalIn",
+        "durationMs": 180,
+        "easing": "ease-out"
+      },
+      "overlayIn": {
+        "className": "animate-overlayIn",
+        "durationMs": 150,
+        "easing": "ease-out"
+      },
+      "toastIn": {
+        "className": "animate-toastIn",
+        "durationMs": 180,
+        "easing": "ease-out"
+      },
+      "cardIn": {
+        "className": "animate-cardIn",
+        "durationMs": 220,
+        "easing": "ease-out"
+      },
+      "shimmer": {
+        "className": "animate-shimmer",
+        "durationMs": 1600,
+        "easing": "ease-in-out",
+        "loop": true
+      },
+      "splashBounce": {
+        "className": "animate-splashBounce",
+        "durationMs": 1200,
+        "easing": "ease-in-out",
+        "loop": true
+      },
+      "staggerSteps": 8,
+      "staggerDelayMs": 40,
+      "respectsReducedMotion": true
+    },
+    "tapTargets": {
+      "minPx": 48,
+      "minTw": "h-12 w-12",
+      "iconPx": 28,
+      "iconTw": "w-7 h-7"
+    },
+    "states": {
+      "loading": {
+        "component": "LoadingSkeleton",
+        "rule": "Render this on first fetch. Never render alongside data — once data arrives, swap completely."
+      },
+      "empty": {
+        "component": "EmptyState",
+        "rule": "Render this when the fetch succeeded but returned zero results. Always offer a primary action so the user knows how to populate the state."
+      },
+      "error": {
+        "component": "ErrorState",
+        "rule": "Render this when the fetch failed. Always include a Try-again affordance unless the failure is permanent (e.g. 404 on a removed entity)."
+      },
+      "success": {
+        "component": "(your data view)",
+        "rule": "The default; render when data is available and non-empty. Do not show skeletons or stale data alongside."
+      }
+    }
+  },
+  "components": [
+    "AppShell",
+    "Header",
+    "BottomTabNav",
+    "Sidebar",
+    "Splash",
+    "UpdateBanner",
+    "UserMenu",
+    "EmptyState",
+    "LoadingSkeleton",
+    "ErrorState",
+    "ThemePickerOverlay",
+    "Modal",
+    "Spinner",
+    "Badge",
+    "Tooltip",
+    "Breadcrumb",
+    "PageTransition",
+    "Toaster",
+    "ErrorDialog"
+  ],
+  "hooks": [
+    "useTheme",
+    "useFullscreen",
+    "useVersionWatcher",
+    "useMediaQuery",
+    "useDebounce",
+    "useLocalStorage",
+    "useToast",
+    "useErrorDialog"
+  ],
+  "styles": [
+    "styles/animations.css",
+    "styles/utilities.css",
+    "styles/dark-mode-safety.css",
+    "styles/index.css",
+    "styles/forms.css"
+  ],
+  "templates": [
+    "templates/theme-bootstrap.html"
+  ],
+  "vitePlugins": [
+    "versionPlugin"
+  ],
+  "exports": {
+    "components": {
+      "AppShell": {
+        "addedIn": "0.1.0"
+      },
+      "Header": {
+        "addedIn": "0.1.0"
+      },
+      "BottomTabNav": {
+        "addedIn": "0.1.0"
+      },
+      "Sidebar": {
+        "addedIn": "0.1.0"
+      },
+      "Splash": {
+        "addedIn": "0.1.0"
+      },
+      "UpdateBanner": {
+        "addedIn": "0.1.0"
+      },
+      "UserMenu": {
+        "addedIn": "0.1.0"
+      },
+      "EmptyState": {
+        "addedIn": "0.1.0"
+      },
+      "LoadingSkeleton": {
+        "addedIn": "0.1.0"
+      },
+      "ErrorState": {
+        "addedIn": "0.1.0"
+      },
+      "ThemePickerOverlay": {
+        "addedIn": "0.2.0"
+      },
+      "Modal": {
+        "addedIn": "0.2.2"
+      },
+      "Spinner": {
+        "addedIn": "0.2.2"
+      },
+      "Badge": {
+        "addedIn": "0.2.2"
+      },
+      "Tooltip": {
+        "addedIn": "0.2.2"
+      },
+      "Breadcrumb": {
+        "addedIn": "0.2.2"
+      },
+      "PageTransition": {
+        "addedIn": "0.2.2"
+      },
+      "Toaster": {
+        "addedIn": "0.2.2"
+      },
+      "ErrorDialog": {
+        "addedIn": "0.2.2"
+      }
+    },
+    "hooks": {
+      "useTheme": {
+        "addedIn": "0.2.0"
+      },
+      "useFullscreen": {
+        "addedIn": "0.2.0"
+      },
+      "useVersionWatcher": {
+        "addedIn": "0.2.0"
+      },
+      "useMediaQuery": {
+        "addedIn": "0.2.2"
+      },
+      "useDebounce": {
+        "addedIn": "0.2.2"
+      },
+      "useLocalStorage": {
+        "addedIn": "0.2.2"
+      },
+      "useToast": {
+        "addedIn": "0.2.2"
+      },
+      "useErrorDialog": {
+        "addedIn": "0.2.2"
+      }
+    },
+    "styles": {
+      "styles/animations.css": {
+        "addedIn": "0.2.0"
+      },
+      "styles/utilities.css": {
+        "addedIn": "0.2.0"
+      },
+      "styles/dark-mode-safety.css": {
+        "addedIn": "0.2.0"
+      },
+      "styles/index.css": {
+        "addedIn": "0.2.0"
+      },
+      "styles/forms.css": {
+        "addedIn": "0.2.2"
+      }
+    },
+    "templates": {
+      "templates/theme-bootstrap.html": {
+        "addedIn": "0.2.0"
+      }
+    },
+    "vitePlugins": {
+      "versionPlugin": {
+        "addedIn": "0.2.0"
+      }
+    },
+    "libs": {
+      "lib/version": {
+        "addedIn": "0.2.0"
+      },
+      "lib/api": {
+        "addedIn": "0.2.2"
+      }
+    }
+  }
+}
