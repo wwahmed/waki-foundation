@@ -4,6 +4,14 @@ All notable changes to this repo. Versions follow semver: patch for
 bug fixes, minor for new components or new config keys, major for
 breaking shape changes to existing config keys.
 
+## v0.4.2 - 2026-05-22 - Dark selected mode contrast
+
+### Components
+
+- **LookSwitcher** and **ThemePickerOverlay** now use dark selected
+  text on bright dark-mode accents, keeping mode segmented controls
+  readable across the Waki theme catalog.
+
 ## v0.4.1 - 2026-05-22 - Appearance picker panel
 
 Adds the shared appearance picker shape used by Waki app sidebars.

@@ -202,7 +202,7 @@ function ModeToggle({
             aria-pressed={selected}
             className={`px-3 py-1.5 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 transition-colors ${
               selected
-                ? "bg-white text-slate-900 shadow-sm dark:bg-sky-500 dark:text-white"
+                ? "bg-white text-slate-900 shadow-sm dark:bg-sky-400 dark:text-slate-950"
                 : "text-slate-600 dark:text-slate-300"
             }`}
           >

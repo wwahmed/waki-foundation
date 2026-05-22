@@ -217,7 +217,7 @@ function ModeSegmentedControl({
               compact ? "h-7 w-7" : "h-9 min-w-12 px-3"
             } ${
               selected
-                ? "bg-white text-slate-950 shadow-sm dark:bg-sky-500 dark:text-white"
+                ? "bg-white text-slate-950 shadow-sm dark:bg-sky-400 dark:text-slate-950"
                 : "text-slate-600 dark:text-slate-300"
             }`}
           >
