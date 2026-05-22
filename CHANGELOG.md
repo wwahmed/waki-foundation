@@ -4,6 +4,23 @@ All notable changes to this repo. Versions follow semver: patch for
 bug fixes, minor for new components or new config keys, major for
 breaking shape changes to existing config keys.
 
+## v0.4.3 - 2026-05-22 - Shell footer controls
+
+### Components
+
+- **ShellFooterControls** adds the shared shell/admin footer pattern
+  for Appearance, Profile, Settings/About, and Sidebar pin controls.
+  It supports `expanded-list` for web/dashboard sidebars,
+  `folded-strip` for dense native/desktop sidebars, and
+  `folded-stack` for collapsed rails.
+- All footer actions carry tooltip/title/ARIA text through the
+  component so icon-only controls remain discoverable.
+
+### Bundle metadata
+
+- `config.sidebar.footerControls` documents the default footer control
+  variants for web, native, and collapsed shell layouts.
+
 ## v0.4.2 - 2026-05-22 - Dark selected mode contrast
 
 ### Components

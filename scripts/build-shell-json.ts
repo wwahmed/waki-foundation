@@ -100,6 +100,7 @@ const COMPONENTS: Record<string, ExportMeta> = {
   WakiShellFrame: { addedIn: "0.4.0" },
   WakiSurface: { addedIn: "0.4.0" },
   WakiToolbar: { addedIn: "0.4.0" },
+  ShellFooterControls: { addedIn: "0.4.3" },
   Modal: { addedIn: "0.2.2" },
   Spinner: { addedIn: "0.2.2" },
   Badge: { addedIn: "0.2.2" },
@@ -153,6 +154,7 @@ const COMPONENT_FAMILIES = {
       "WakiSurface",
       "WakiToolbar",
       "LookSwitcher",
+      "ShellFooterControls",
     ],
   },
 };

@@ -8,6 +8,12 @@ export { BottomTabNav } from "./components/BottomTabNav";
 export type { BottomTabNavProps } from "./components/BottomTabNav";
 export { Sidebar } from "./components/Sidebar";
 export type { SidebarProps } from "./components/Sidebar";
+export { ShellFooterControls } from "./components/ShellFooterControls";
+export type {
+  ShellFooterAction,
+  ShellFooterControlsProps,
+  ShellFooterControlsVariant,
+} from "./components/ShellFooterControls";
 export { AppShell } from "./components/AppShell";
 export type { AppShellProps } from "./components/AppShell";
 export { Splash } from "./components/Splash";

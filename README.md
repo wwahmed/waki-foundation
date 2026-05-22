@@ -1,6 +1,6 @@
 # waki-shell
 
-Shared shell scaffolding for Waqas's apps. Component scaffolds (Header, BottomTabNav, Splash, UpdateBanner, UserMenu, EmptyState, LoadingSkeleton, ErrorState, AppShell, Sidebar) plus a new Waki Material Shell family (`WakiShellFrame`, `WakiSurface`, `WakiToolbar`, `LookSwitcher`) and a versioned JSON config bundle published at `dist/shell.json`. Sibling repo to [waki-themes](https://github.com/wwahmed/waki-themes).
+Shared shell scaffolding for Waqas's apps. Component scaffolds (Header, BottomTabNav, Splash, UpdateBanner, UserMenu, EmptyState, LoadingSkeleton, ErrorState, AppShell, Sidebar) plus a new Waki Material Shell family (`WakiShellFrame`, `WakiSurface`, `WakiToolbar`, `LookSwitcher`, `ShellFooterControls`) and a versioned JSON config bundle published at `dist/shell.json`. Sibling repo to [waki-themes](https://github.com/wwahmed/waki-themes).
 
 This repo is **public** because it contains only design tokens and shared UI patterns: no business logic, no secrets, no app-specific data. Consuming apps stay private. Same model as `shadcn/ui` and other shared design infra — public scaffolds, private consumers.
 
@@ -76,8 +76,24 @@ The old extracted components remain available for existing apps. New apps should
 | `WakiSurface` | Material-aware surface primitive for base, raised, bar, nested, sidebar, main, and mobile panels |
 | `WakiToolbar` | Reusable themed toolbar/header strip |
 | `LookSwitcher` | Standard compact theme + light/dark switcher |
+| `ShellFooterControls` | Shared Appearance/Profile/Settings/Pin footer controls with expanded web rows and folded native icon variants |
 
 These components do not hard-code one app's palette. They rely on the active waki-themes CSS contract, so corner radius, blur, shadows, hover behavior, density, and dark-mode color all follow the selected material family.
+
+### Shell footer controls
+
+Use `ShellFooterControls` for shell/admin actions that should be
+consistent across apps but whose prominence changes by app type:
+
+- `expanded-list`: web/dashboard sidebars with enough room for labeled
+  rows.
+- `folded-strip`: dense native/desktop apps where Appearance, Profile,
+  and Pin should stay quieter than primary navigation.
+- `folded-stack`: collapsed rails.
+
+Every action supplies a label and should supply tooltip text. The
+component wires tooltip, native `title`, `aria-label`, and
+`aria-pressed` so icon-only controls remain understandable.
 
 ## Layer-1 config
 
@@ -90,7 +106,7 @@ Currently shipping:
 | `breakpoints` | sm / md / lg / xl + the mobile-nav threshold |
 | `header` | h-14 height, z-30, padding tokens |
 | `bottomTabNav` | hide-at-md, max 5 tabs, safe-area inset |
-| `sidebar` | width / hide-below tokens (unused by printer-dashboard for now) |
+| `sidebar` | width / hide-below tokens plus footer control variant guidance |
 | `splash` | min-display 700ms, 4s hard timeout, 280ms fade |
 | `updateBanner` | 30s idle auto-refresh, 60s post-refresh cooldown, 60s poll, z-55 |
 | `animations` | keyframe + class names + durations + reduced-motion opt-out |
