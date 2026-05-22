@@ -33,12 +33,13 @@ export interface ThemePickerThemeMeta {
   description: string;
 }
 
-export type ThemeMode = "dark" | "light";
+export type ThemeMode = "system" | "dark" | "light";
 
 export interface ThemePickerIcons {
   Check: ComponentType<{ className?: string }>;
   Moon: ComponentType<{ className?: string }>;
   Sun: ComponentType<{ className?: string }>;
+  Monitor?: ComponentType<{ className?: string }>;
   X: ComponentType<{ className?: string }>;
 }
 
@@ -80,7 +81,7 @@ export function ThemePickerOverlay({
   subtitle = "Tap any tile to swap instantly. The change applies across the whole app.",
   preGrid,
 }: ThemePickerOverlayProps) {
-  const { Check, Moon, Sun, X } = icons;
+  const { Check, Moon, Sun, Monitor, X } = icons;
 
   useEffect(() => {
     if (!open) return;
@@ -113,7 +114,7 @@ export function ThemePickerOverlay({
             <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{subtitle}</p>
           </div>
 
-          <ModeToggle mode={mode} onSetMode={onSetMode} Sun={Sun} Moon={Moon} />
+          <ModeToggle mode={mode} onSetMode={onSetMode} Sun={Sun} Moon={Moon} Monitor={Monitor} />
 
           <button
             type="button"
@@ -171,40 +172,45 @@ function ModeToggle({
   onSetMode,
   Sun,
   Moon,
+  Monitor,
 }: {
   mode: ThemeMode;
   onSetMode: (mode: ThemeMode) => void;
   Sun: ComponentType<{ className?: string }>;
   Moon: ComponentType<{ className?: string }>;
+  Monitor?: ComponentType<{ className?: string }>;
 }) {
+  const options: ReadonlyArray<{
+    id: ThemeMode;
+    label: string;
+    Icon?: ComponentType<{ className?: string }>;
+  }> = [
+    { id: "system", label: "System", Icon: Monitor },
+    { id: "light", label: "Light", Icon: Sun },
+    { id: "dark", label: "Dark", Icon: Moon },
+  ];
+
   return (
     <div className="flex-shrink-0 inline-flex rounded-full bg-slate-200/70 dark:bg-slate-700/70 p-1">
-      <button
-        type="button"
-        onClick={() => onSetMode("light")}
-        aria-pressed={mode === "light"}
-        className={`px-3 py-1.5 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 transition-colors ${
-          mode === "light"
-            ? "bg-white text-slate-900 shadow-sm"
-            : "text-slate-600 dark:text-slate-300"
-        }`}
-      >
-        <Sun className="w-3.5 h-3.5" />
-        Light
-      </button>
-      <button
-        type="button"
-        onClick={() => onSetMode("dark")}
-        aria-pressed={mode === "dark"}
-        className={`px-3 py-1.5 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 transition-colors ${
-          mode === "dark"
-            ? "bg-slate-900 text-white shadow-sm"
-            : "text-slate-600 dark:text-slate-300"
-        }`}
-      >
-        <Moon className="w-3.5 h-3.5" />
-        Dark
-      </button>
+      {options.map(({ id, label, Icon }) => {
+        const selected = mode === id;
+        return (
+          <button
+            key={id}
+            type="button"
+            onClick={() => onSetMode(id)}
+            aria-pressed={selected}
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 transition-colors ${
+              selected
+                ? "bg-white text-slate-900 shadow-sm dark:bg-sky-500 dark:text-white"
+                : "text-slate-600 dark:text-slate-300"
+            }`}
+          >
+            {Icon ? <Icon className="w-3.5 h-3.5" /> : <span className="text-[10px]">{label.slice(0, 1)}</span>}
+            {label}
+          </button>
+        );
+      })}
     </div>
   );
 }

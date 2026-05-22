@@ -35,6 +35,7 @@ export type {
   LookSwitcherTheme,
   LookSwitcherIcons,
   LookSwitcherMode,
+  LookSwitcherVariant,
 } from "./components/LookSwitcher";
 
 // Next-generation shell family. These are additive and theme-contract

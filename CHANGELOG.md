@@ -4,6 +4,20 @@ All notable changes to this repo. Versions follow semver: patch for
 bug fixes, minor for new components or new config keys, major for
 breaking shape changes to existing config keys.
 
+## v0.4.1 - 2026-05-22 - Appearance picker panel
+
+Adds the shared appearance picker shape used by Waki app sidebars.
+Existing compact `LookSwitcher` usage remains supported.
+
+### Components
+
+- **LookSwitcher** now supports an optional `panel` variant with a
+  scrollable two-column theme grid, per-theme preview rendering,
+  refresh/status slots, and a fixed appearance mode selector.
+- **LookSwitcherMode** and **ThemePickerOverlay** now include
+  `system` mode alongside `light` and `dark`, with optional monitor
+  icon support.
+
 ## v0.4.0 - 2026-05-17 - Waki Material Shell family
 
 Adds an additive next-generation shell family for the new
