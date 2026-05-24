@@ -137,7 +137,7 @@ export function Modal({
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center p-0 sm:p-6 bg-black/40 dark:bg-black/50 backdrop-blur-md backdrop-saturate-150 animate-overlayIn motion-reduce:animate-none"
+      className="waki-overlay-backdrop fixed inset-0 z-[60] flex items-end sm:items-center justify-center p-0 sm:p-6 bg-black/40 dark:bg-black/50 backdrop-blur-md backdrop-saturate-150 animate-overlayIn motion-reduce:animate-none"
       onClick={() => {
         if (closeOnBackdrop) onClose();
       }}
@@ -152,7 +152,7 @@ export function Modal({
         aria-describedby={describedBy}
         tabIndex={-1}
         onClick={(e) => e.stopPropagation()}
-        className={`surface-1 w-full ${SIZE_CLASS[size]} sm:rounded-2xl rounded-t-2xl shadow-2xl border border-line-soft outline-none animate-modalIn motion-reduce:animate-none flex flex-col max-h-[90vh] ${className}`}
+        className={`surface-1 waki-dialog-surface w-full ${SIZE_CLASS[size]} sm:rounded-2xl rounded-t-2xl shadow-2xl border border-line-soft outline-none animate-modalIn motion-reduce:animate-none flex flex-col max-h-[90vh] ${className}`}
       >
         {(title || description) && (
           <div className="px-5 py-4 border-b border-line-soft flex-shrink-0">

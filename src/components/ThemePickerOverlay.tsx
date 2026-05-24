@@ -96,7 +96,7 @@ export function ThemePickerOverlay({
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-start sm:items-center justify-center p-0 sm:p-6 bg-black/40 dark:bg-black/50 backdrop-blur-xl backdrop-saturate-150 animate-overlayIn motion-reduce:animate-none"
+      className="waki-overlay-backdrop fixed inset-0 z-[60] flex items-start sm:items-center justify-center p-0 sm:p-6 bg-black/40 dark:bg-black/50 backdrop-blur-xl backdrop-saturate-150 animate-overlayIn motion-reduce:animate-none"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -104,7 +104,7 @@ export function ThemePickerOverlay({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="glass-bar relative w-full max-w-4xl max-h-full sm:max-h-[90vh] sm:rounded-3xl overflow-hidden flex flex-col animate-modalIn motion-reduce:animate-none"
+        className="glass-bar waki-dialog-surface relative w-full max-w-4xl max-h-full sm:max-h-[90vh] sm:rounded-3xl overflow-hidden flex flex-col animate-modalIn motion-reduce:animate-none"
       >
         <div className="flex items-center gap-3 px-5 py-4 border-b border-slate-200 dark:border-slate-700/60 flex-shrink-0">
           <div className="min-w-0 flex-1">

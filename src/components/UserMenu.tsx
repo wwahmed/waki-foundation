@@ -102,6 +102,7 @@ export function UserMenu({
               sm:absolute sm:inset-auto sm:left-auto sm:right-0 sm:top-full sm:mt-1 sm:w-64
               rounded-xl border border-slate-200 dark:border-slate-700
               bg-white dark:bg-slate-800 shadow-xl shadow-slate-300/40 dark:shadow-black/50
+              waki-popover-surface
               overflow-hidden animate-modalIn motion-reduce:animate-none
             "
           >

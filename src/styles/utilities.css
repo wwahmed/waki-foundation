@@ -24,6 +24,15 @@
   .surface-2     { @apply bg-slate-50 dark:bg-slate-700; }
   .surface-3     { @apply bg-white dark:bg-slate-700; }
   .surface-muted { @apply bg-slate-100 dark:bg-slate-800/70; }
+  .waki-dialog-surface {
+    @apply bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl backdrop-saturate-150;
+  }
+  .waki-popover-surface {
+    @apply bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl backdrop-saturate-150;
+  }
+  .waki-overlay-backdrop {
+    @apply bg-slate-950/35 dark:bg-slate-950/60 backdrop-blur-md backdrop-saturate-150;
+  }
 
   /* ---- Borders / lines --------------------------------------------------- */
   .border-line     { @apply border-slate-300 dark:border-slate-600; }
