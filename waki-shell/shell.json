@@ -1,7 +1,7 @@
 {
-  "version": "0.4.0",
-  "gitSha": "caf8a00",
-  "builtAt": "2026-05-18T04:20:05.762Z",
+  "version": "0.4.4",
+  "gitSha": "60cc67f",
+  "builtAt": "2026-05-24T02:33:56.634Z",
   "config": {
     "breakpoints": {
       "sm": 640,
@@ -31,7 +31,14 @@
       "widthTw": "md:w-56",
       "widthPx": 224,
       "hideBelow": "md",
-      "collapsibleAt": "lg"
+      "collapsibleAt": "lg",
+      "footerControls": {
+        "webDefaultVariant": "expanded-list",
+        "nativeDefaultVariant": "folded-strip",
+        "collapsedVariant": "folded-stack",
+        "iconButtonPx": 36,
+        "requireTooltipText": true
+      }
     },
     "splash": {
       "minDurationMs": 700,
@@ -133,6 +140,7 @@
     "WakiShellFrame",
     "WakiSurface",
     "WakiToolbar",
+    "ShellFooterControls",
     "Modal",
     "Spinner",
     "Badge",
@@ -207,7 +215,8 @@
         "WakiShellFrame",
         "WakiSurface",
         "WakiToolbar",
-        "LookSwitcher"
+        "LookSwitcher",
+        "ShellFooterControls"
       ]
     }
   },
@@ -257,6 +266,9 @@
       },
       "WakiToolbar": {
         "addedIn": "0.4.0"
+      },
+      "ShellFooterControls": {
+        "addedIn": "0.4.3"
       },
       "Modal": {
         "addedIn": "0.2.2"
