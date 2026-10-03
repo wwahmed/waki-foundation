@@ -174,3 +174,47 @@ export const MIGRATIONS = {
 /** WOV's own three ids: Slate and Paper become Boardroom and Graphite unchanged; WOV's grey
  *  Graphite folds into Mac. (WOV's "graphite" is not the family Graphite.) */
 export const WOV_MIGRATION = { slate: "boardroom", paper: "graphite", graphite: "mac" };
+
+/** The catalog ids retired in waki-themes 2.0, each served as an alias of the family theme it maps
+ *  onto, so apps that still ask for one get a family look instead of nothing. */
+export const RETIRED_IDS = {
+  "waki-glass-prism": "civic",
+  "waki-glass-opal": "civic",
+  "waki-glass-civic": "civic",
+  "waki-glass-obsidian": "civic",
+  "waki-frost-arctic": "mac",
+  "waki-frost-rose": "mac",
+  "waki-frost-mint": "mac",
+  "waki-frost-violet": "mac",
+  "waki-academic-ivory": "graphite",
+  "waki-academic-oxford": "graphite",
+  "waki-academic-slate": "graphite",
+  "waki-academic-sepia": "graphite",
+  "waki-desktop-graphite": "graphite",
+  "waki-desktop-cobalt": "cobalt",
+  "waki-desktop-nova": "cobalt",
+  "waki-desktop-olive": "graphite",
+  "waki-professional-boardroom": "boardroom",
+  "waki-professional-meridian": "boardroom",
+  "waki-professional-sterling": "boardroom",
+  "waki-professional-capital": "boardroom",
+  "waki-corporate-atlas": "boardroom",
+  "waki-corporate-ledger": "boardroom",
+  "waki-corporate-summit": "boardroom",
+  "waki-corporate-harbor": "boardroom",
+  "waki-frosted-pro-platinum": "mac",
+  "waki-frosted-pro-azure": "mac",
+  "waki-frosted-pro-jade": "mac",
+  "waki-frosted-pro-amethyst": "mac",
+  "waki-system-mac": "mac",
+  "waki-system-windows": "mac",
+  "waki-mobile-orchid": "mac",
+  "waki-mobile-mint": "mac",
+  "waki-mobile-sunrise": "mac",
+  "waki-mobile-ocean": "mac",
+  "waki-command-cyan": "cobalt",
+  "waki-command-lime": "cobalt",
+  "waki-command-magenta": "cobalt",
+  "waki-command-amber": "cobalt",
+  "waki-studio-cobalt": "cobalt"
+};

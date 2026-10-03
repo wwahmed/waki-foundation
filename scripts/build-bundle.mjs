@@ -21,6 +21,7 @@ import { fileURLToPath } from "node:url";
 
 import { FAMILIES, VARIANT_BY_THEME_ID } from "../src/themes/families.mjs";
 import { FAMILY } from "../src/themes/family.mjs";
+import { RETIRED_IDS } from "../family/family-themes.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, "..");
@@ -102,6 +103,14 @@ for (const id of Object.keys(META)) {
 // structure, variants: [...] }. Each variant references its flat themeId so
 // the studio + future consumers can resolve a variant to its CSS without
 // duplicating it in this section.
+// Retired catalog ids answer with the family theme they map onto (same CSS, `aliasOf` set), so an
+// app that still asks for one gets a family look. They are in no family, so pickers built from
+// `families` or `family` never list them.
+for (const [retiredId, familyId] of Object.entries(RETIRED_IDS)) {
+  const target = `waki-family-${familyId}`;
+  if (themes[target]) themes[retiredId] = { ...themes[target], aliasOf: target };
+}
+
 const families = {};
 for (const [familyId, family] of Object.entries(FAMILIES)) {
   const variants = family.variants

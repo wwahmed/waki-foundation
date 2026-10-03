@@ -4,26 +4,20 @@ Shared theme catalog for Waki apps. The repo publishes a versioned bundle of CSS
 
 ## Current Catalog
 
-The v1.4.0 catalog is organized by **material family** first and **hue variant** second. Variants inside a family usually share the same geometry, blur, density, typography, shadows, and hover behavior; the suffix tells you the colorway. The `System` family intentionally lets Mac and Windows differ structurally to better echo native OS conventions.
+Since v2.0.0 the catalog is just the **five Waki family themes**, the set every Waki app offers:
 
-| Family | Variants |
-|---|---|
-| Waki Glass | Prism, Opal, Civic, Obsidian |
-| Waki Frost | Arctic, Rose, Mint, Violet |
-| Waki Academic | Ivory, Oxford, Slate, Sepia |
-| Waki Desktop | Graphite, Cobalt, Nova, Olive |
-| Waki Professional | Boardroom, Meridian, Sterling, Capital |
-| Waki Corporate | Atlas, Ledger, Summit, Harbor |
-| Waki Frosted Pro | Platinum, Azure, Jade, Amethyst |
-| System | Mac, Windows |
-| Waki Mobile | Plum, Mint, Sunrise, Ocean |
-| Waki Command | Cyan, Lime, Burgundy, Amber |
-| Waki Studio | Cobalt |
-| **Waki Family** | Mac, Boardroom, Graphite, Civic, Cobalt (the five every Waki app offers; see below) |
+| Theme | Id | Look | Structure it borrows |
+|---|---|---|---|
+| Mac | `waki-family-mac` | macOS neutral, system blue | System (Mac translucency) |
+| Boardroom | `waki-family-boardroom` | cool blue-grey, clear blue (WOV's Slate) | Professional |
+| Graphite | `waki-family-graphite` | warm stone and paper, deep amber (WOV's Paper) | Desktop |
+| Civic | `waki-family-civic` | navy glass with an amber glow (Waki AI Service) | **Glass** (the glass theme) |
+| Cobalt | `waki-family-cobalt` | midnight navy, cobalt and indigo (Manager 3dByPixel) | Studio (solid, IBM Plex) |
 
-Theme ids follow the same pattern: `waki-glass-prism`, `waki-academic-ivory`, `waki-command-cyan`, and so on.
-
-This is a breaking catalog cleanup. Older ids such as `glass-v2`, `frosted-glass`, `editorial-academic`, and `v2-*` are no longer in the published bundle; downstream apps should migrate to the new `waki-*` ids.
+The 39 earlier catalog themes (Glass, Frost, Academic, Desktop, Professional, Corporate, Frosted Pro,
+System, Mobile, Command, Studio) are retired. Their ids still answer: each is served as an alias of
+the nearest family theme (`aliasOf` in the bundle; the mapping is `RETIRED_IDS` in
+`family/family-themes.mjs`), and no picker lists them.
 
 ## The Waki family themes
 

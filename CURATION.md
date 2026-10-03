@@ -1,3 +1,5 @@
+> **Superseded (v2.0.0):** the catalog is now the five Waki family themes; see README › Current Catalog and `family/family-themes.mjs`. The notes below describe the retired catalog.
+
 # Theme curation (v0.4.0, 2026-04-30)
 
 Curation directive from Waqas: tighten the catalog to 5 families x 4 variants (20 themes), drawn from common modern professional theme trends. Replaces the prior flat list of 21 only-superficially-different themes.

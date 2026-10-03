@@ -52,8 +52,16 @@ for (const [familyId, family] of Object.entries(bundle.families ?? {})) {
 }
 
 for (const id of themesIds) {
+  const aliasOf = bundle.themes[id].aliasOf;
+  if (aliasOf) {
+    // A retired id served as a family theme (waki-themes 2.0).
+    assert(variantThemeIds.has(aliasOf), `alias ${id} points at ${aliasOf}, which no family lists`);
+    continue;
+  }
   assert(variantThemeIds.has(id), `theme ${id} is in themes map but no family lists it`);
 }
+assert(Array.isArray(bundle.family?.themes) && bundle.family.themes.length === 5, "the bundle lists the five family themes");
+for (const t of bundle.family?.themes ?? []) assert(themesIds.has(t.id), `family theme ${t.id} not in themes map`);
 
 for (const [id, t] of Object.entries(bundle.themes ?? {})) {
   assert(typeof t.css === "string" && t.css.length > 0, `theme ${id} has empty css`);

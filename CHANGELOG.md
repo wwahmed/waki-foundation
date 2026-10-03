@@ -1,5 +1,14 @@
 # Changelog
 
+## v2.0.0 - 2026-10-02
+
+### Removed (breaking)
+- The 39 catalog themes. The catalog is the five Waki family themes. Their definitions are gone from `scripts/gen-v2-themes.mjs`, except the five materials/variants whose structure the family borrows (system/mac, professional/boardroom, desktop/graphite, glass/civic, studio/cobalt).
+
+### Compatibility
+- Every retired id stays in the bundle's `themes` map as an alias of its nearest family theme (same CSS, `aliasOf` set): Glass, Frost/Frosted Pro, Mobile and System map to Civic or Mac; Professional and Corporate to Boardroom; Academic and Desktop Graphite/Olive to Graphite; Desktop Cobalt/Nova, Command and Studio to Cobalt. `bundle.families` lists only the family, so pickers show five themes.
+- The five family CSS files are unchanged from v1.4.0.
+
 ## v1.4.0 - 2026-10-02
 
 ### Added
