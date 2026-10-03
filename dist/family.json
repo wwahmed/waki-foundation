@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pkgVersion": "1.4.0",
+  "pkgVersion": "2.0.0",
   "defaultId": "mac",
   "roleKeys": [
     "bg-1",
