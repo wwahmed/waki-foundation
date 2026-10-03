@@ -992,20 +992,81 @@ body {
       }),
     ],
   },
+  studio: {
+    id: "studio",
+    name: "Waki Studio",
+    description: "Solid, calm work surfaces with IBM Plex type and compact rows, for production dashboards that run all day.",
+    structure: {
+      radius: 12,
+      blur: 0,
+      shadow: "flat-soft",
+      surface: "solid",
+      iconography: "regular",
+      density: "compact",
+    },
+    tokens: {
+      radius: 12,
+      blur: 0,
+      density: "0.5rem 0.78rem",
+      hover: "0px",
+      elevatedHover: "-1px",
+      navShift: "0px",
+      borderWidth: "1px",
+      saturation: "100%",
+      elevatedSaturation: "100%",
+      sidebarBlend: "100%",
+      mainBlend: "100%",
+      mobileExtra: 0,
+      buttonRadius: "6px",
+      fontBody: "\"IBM Plex Sans\", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+      fontDisplay: "\"IBM Plex Sans\", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+      shadow: "0 8px 24px var(--waki-shadow)",
+      elevatedShadow: "0 16px 40px var(--waki-shadow), inset 0 1px 0 rgba(255,255,255,.04)",
+      panelInset: "inset 0 1px 0 rgba(255,255,255,.04)",
+      bodyOverlay: "",
+      extraCss: `
+.glass,
+.glass-elevated,
+.glass-bar,
+.shell-main,
+.mobile-card {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+code,
+kbd,
+pre {
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+progress::-webkit-progress-value {
+  background: linear-gradient(90deg, var(--waki-accent), var(--waki-accent-2));
+}
+`,
+    },
+    variants: [
+      // Manager 3dByPixel's Cobalt, value for value: page, card, sidebar panel, card header.
+      colorway("cobalt", "Cobalt", "Cobalt and indigo on midnight navy; crisp white and periwinkle in light mode. From Manager 3dByPixel.", {
+        light: palette("#ffffff", "#f4f7fe", "#ffffff", "#1746d8", "#5b2fd6", "#0f1732", "#4a5480", "#fdfdff", "#e6ecfa", "#d6e0f8", "rgba(20,32,80,.16)", "rgba(20,32,80,.2)", "rgba(15,23,50,.1)", "rgba(23,70,216,.05)", "rgba(91,47,214,.04)", "rgba(230,236,250,0)"),
+        dark: palette("#080b14", "#0c1122", "#0a0e1b", "#7fa5ff", "#a98cff", "#e6e9f7", "#949dc0", "#161c34", "#101528", "#1a2140", "rgba(255,255,255,.08)", "rgba(255,255,255,.15)", "rgba(0,0,0,.5)", "rgba(127,165,255,.06)", "rgba(169,140,255,.05)", "rgba(10,14,27,0)"),
+      }, {}, { exactLight: true }),
+    ],
+  },
 };
 
 function palette(bg1, bg2, bg3, accent, accent2, text, muted, panel, panel2, panel3, border, border2, shadow, blob1, blob2, blob3) {
   return { bg1, bg2, bg3, accent, accent2, text, muted, panel, panel2, panel3, border, border2, shadow, blob1, blob2, blob3 };
 }
 
-function colorway(slot, name, description, modes, tokens = {}) {
+function colorway(slot, name, description, modes, tokens = {}, options = {}) {
   return {
     slot,
     name,
     description,
     modes: {
       ...modes,
-      light: nonWhiteLightPalette(modes.light),
+      // Light palettes are tinted towards the accents unless a colorway is reproduced exactly
+      // from an app that already ships it (options.exactLight).
+      light: options.exactLight ? modes.light : nonWhiteLightPalette(modes.light),
     },
     tokens,
   };

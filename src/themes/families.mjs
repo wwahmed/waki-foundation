@@ -1057,6 +1057,44 @@ export const FAMILIES = {
         }
       }
     ]
+  },
+  "studio": {
+    "name": "Waki Studio",
+    "description": "Solid, calm work surfaces with IBM Plex type and compact rows, for production dashboards that run all day.",
+    "structure": {
+      "radius": 12,
+      "blur": 0,
+      "shadow": "flat-soft",
+      "surface": "solid",
+      "iconography": "regular",
+      "density": "compact"
+    },
+    "variants": [
+      {
+        "slot": "cobalt",
+        "themeId": "waki-studio-cobalt",
+        "name": "Cobalt",
+        "description": "Cobalt and indigo on midnight navy; crisp white and periwinkle in light mode. From Manager 3dByPixel.",
+        "palette": {
+          "light": {
+            "bgFrom": "#ffffff",
+            "bgTo": "#f4f7fe",
+            "panel": "#fdfdff",
+            "border": "rgba(20,32,80,.16)",
+            "text": "#0f1732",
+            "accent": "#1746d8"
+          },
+          "dark": {
+            "bgFrom": "#080b14",
+            "bgTo": "#0c1122",
+            "panel": "#161c34",
+            "border": "rgba(255,255,255,.08)",
+            "text": "#e6e9f7",
+            "accent": "#7fa5ff"
+          }
+        }
+      }
+    ]
   }
 };
 

@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.3.0 - 2026-10-02
+
+### Added
+- **Waki Studio** family with the **Cobalt** colorway (`waki-studio-cobalt`), reproduced value for value from Manager 3dByPixel's Cobalt (`apps/manager/frontend/src/theme/cobalt.css`): solid surfaces, IBM Plex type, cobalt and indigo accents on midnight navy, crisp white and periwinkle in light mode. A new family rather than a variant because its structure (no blur, solid panels, 6 px buttons) differs from every existing family.
+- `colorway(..., options)` accepts `exactLight: true` to keep a light palette exactly as an app ships it instead of tinting it towards the accents.
+
+### Notes
+- Waki AI Service's dashboard look is the existing **Waki Glass · Civic** (`waki-glass-civic`); nothing to add for it. It becomes that app's default theme.
+
 ## v1.2.4 (2026-05-23)
 
 ### Light mode surface tinting
