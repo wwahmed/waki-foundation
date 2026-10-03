@@ -20,6 +20,7 @@ import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { FAMILIES, VARIANT_BY_THEME_ID } from "../src/themes/families.mjs";
+import { FAMILY } from "../src/themes/family.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, "..");
@@ -134,6 +135,20 @@ const bundle = {
   base: baseCss,
   themes,
   families,
+  // The five themes every Waki app offers, in order. Web apps list these instead of the whole
+  // catalog; `nativeId` is WakiKit's id for the same theme. Full roles, scales and extended roles
+  // are in dist/family.json.
+  family: {
+    defaultId: FAMILY.defaultId,
+    themes: FAMILY.themes.map((t) => ({
+      id: t.webId,
+      nativeId: t.id,
+      name: t.name,
+      description: t.description,
+      // Older ids (exact) and words (matched inside an id) that map onto this theme.
+      migratesFrom: t.migratesFrom,
+    })),
+  },
 };
 
 const out = resolve(repoRoot, "dist", "themes.json");

@@ -1095,6 +1095,140 @@ export const FAMILIES = {
         }
       }
     ]
+  },
+  "family": {
+    "name": "Waki Family",
+    "description": "The five themes every Waki app offers, the same in the Mac apps and the web apps.",
+    "structure": {
+      "radius": 12,
+      "blur": 8,
+      "shadow": "executive-subtle",
+      "surface": "crisp-translucent",
+      "iconography": "regular",
+      "density": "business"
+    },
+    "variants": [
+      {
+        "slot": "mac",
+        "themeId": "waki-family-mac",
+        "name": "Mac",
+        "description": "Neutral surfaces and the macOS system blue. Feels at home next to every other Mac app.",
+        "palette": {
+          "light": {
+            "bgFrom": "#f5f5f7",
+            "bgTo": "#eceef2",
+            "panel": "rgba(255,255,255,.72)",
+            "border": "rgba(60,60,67,.16)",
+            "text": "#1d1d1f",
+            "accent": "#007aff"
+          },
+          "dark": {
+            "bgFrom": "#1c1c1e",
+            "bgTo": "#141416",
+            "panel": "rgba(44,44,46,.72)",
+            "border": "rgba(84,84,88,.55)",
+            "text": "#f5f5f7",
+            "accent": "#0a84ff"
+          }
+        }
+      },
+      {
+        "slot": "boardroom",
+        "themeId": "waki-family-boardroom",
+        "name": "Boardroom",
+        "description": "Cool blue-grey with a clear blue accent. The Waki professional look.",
+        "palette": {
+          "light": {
+            "bgFrom": "#f3f7fa",
+            "bgTo": "#eef2f7",
+            "panel": "#ffffff",
+            "border": "#e0e7ef",
+            "text": "#243550",
+            "accent": "#0571bd"
+          },
+          "dark": {
+            "bgFrom": "#142640",
+            "bgTo": "#0f1c30",
+            "panel": "#243550",
+            "border": "#3d5273",
+            "text": "#eef2f7",
+            "accent": "#64bcfe"
+          }
+        }
+      },
+      {
+        "slot": "graphite",
+        "themeId": "waki-family-graphite",
+        "name": "Graphite",
+        "description": "Warm stone and paper tones with a deep amber accent. Easy on the eyes.",
+        "palette": {
+          "light": {
+            "bgFrom": "#f7f4f0",
+            "bgTo": "#f1ede8",
+            "panel": "#ffffff",
+            "border": "#e5e0da",
+            "text": "#201d1b",
+            "accent": "#aa4f02"
+          },
+          "dark": {
+            "bgFrom": "#171514",
+            "bgTo": "#11100f",
+            "panel": "#201d1b",
+            "border": "#423d3a",
+            "text": "#f1ede8",
+            "accent": "#ea913c"
+          }
+        }
+      },
+      {
+        "slot": "civic",
+        "themeId": "waki-family-civic",
+        "name": "Civic",
+        "description": "Navy glass with an amber glow. Waki AI Service's look.",
+        "palette": {
+          "light": {
+            "bgFrom": "color-mix(in srgb, #eef4ff 88%, #2563eb)",
+            "bgTo": "color-mix(in srgb, #fff8ea 88%, #d97706)",
+            "panel": "color-mix(in srgb, rgba(255,255,255,.68) 70%, #eef4ff)",
+            "border": "color-mix(in srgb, rgba(37,99,235,.22) 82%, #2563eb)",
+            "text": "#12213d",
+            "accent": "#2563eb"
+          },
+          "dark": {
+            "bgFrom": "#061329",
+            "bgTo": "#24180a",
+            "panel": "rgba(37,99,235,.14)",
+            "border": "rgba(251,191,36,.26)",
+            "text": "#edf4ff",
+            "accent": "#60a5fa"
+          }
+        }
+      },
+      {
+        "slot": "cobalt",
+        "themeId": "waki-family-cobalt",
+        "name": "Cobalt",
+        "description": "Midnight navy with cobalt and indigo. Manager 3dByPixel's look.",
+        "palette": {
+          "light": {
+            "bgFrom": "#ffffff",
+            "bgTo": "#f4f7fe",
+            "panel": "#fdfdff",
+            "border": "rgba(20,32,80,.16)",
+            "text": "#0f1732",
+            "accent": "#1746d8"
+          },
+          "dark": {
+            "bgFrom": "#080b14",
+            "bgTo": "#0c1122",
+            "panel": "#161c34",
+            "border": "rgba(255,255,255,.08)",
+            "text": "#e6e9f7",
+            "accent": "#7fa5ff"
+          }
+        }
+      }
+    ]
   }
 };
 

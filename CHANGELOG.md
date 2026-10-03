@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.4.0 - 2026-10-02
+
+### Added
+- **The Waki family themes** (`waki-family-mac`, `-boardroom`, `-graphite`, `-civic`, `-cobalt`): one source, `family/family-themes.mjs`, for every Waki app. Boardroom and Graphite take WOV's tuned Slate and Paper scales; Mac keeps the macOS values (muted text in dark mode lightened to #a1a1a6 for 4.5:1 on popovers); Civic and Cobalt keep their values (Cobalt's light danger and info darkened to pass 4.5:1 as text).
+- `scripts/gen-family.mjs`: resolves roles, extended roles and scales, enforces WOV's contrast bar in both modes, writes `dist/family.json` (also on the CDN) and `src/themes/family.mjs`.
+- The bundle's `family` key lists the five in order with their native ids and the older ids that map onto them.
+- Theme CSS can set `--waki-bar` and `--waki-focus` explicitly and carries the family's extended roles as `--waki-panel-head`, `--waki-slot`, `--waki-thumb`, `--waki-text-2`, `--waki-dim`, `--waki-accent-text`, `--waki-on-accent`, `--waki-success`, `--waki-warning`, `--waki-warning-text`, `--waki-danger`, `--waki-info`, `--waki-progress`.
+
+### Unchanged
+- The 39 existing themes generate byte for byte as before.
+
 ## v1.3.0 - 2026-10-02
 
 ### Added

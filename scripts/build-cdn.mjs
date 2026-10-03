@@ -51,6 +51,14 @@ const distSubDir = resolve(themesDir, "dist");
 mkdirSync(distSubDir, { recursive: true });
 copyFileSync(src, resolve(distSubDir, "themes.json"));
 
+// The family themes in full (roles, extended roles, scales) for apps that build their own CSS or
+// native palettes from them: https://cdn.wakilabs.dev/waki-themes/family.json
+const familySrc = resolve(repoRoot, "dist", "family.json");
+if (existsSync(familySrc)) {
+  copyFileSync(familySrc, resolve(themesDir, "family.json"));
+  copyFileSync(familySrc, resolve(distSubDir, "family.json"));
+}
+
 // Output B: ~/workspaces/wakilabs-cdn/waki-themes/. The wakilabs-cdn
 // Pages project's deploy command is `wrangler pages deploy
 // ~/workspaces/wakilabs-cdn ...`, so emitting here makes the bundle
@@ -61,6 +69,7 @@ if (existsSync(resolve(cdnWorkspace, ".."))) {
   mkdirSync(resolve(cdnWorkspace, "dist"), { recursive: true });
   copyFileSync(src, resolve(cdnWorkspace, "themes.json"));
   copyFileSync(src, resolve(cdnWorkspace, "dist", "themes.json"));
+  if (existsSync(familySrc)) copyFileSync(familySrc, resolve(cdnWorkspace, "family.json"));
   console.log(
     `[build-cdn] mirrored to ${cdnWorkspace}/{themes.json, dist/themes.json}`,
   );

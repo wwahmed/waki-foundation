@@ -21,6 +21,8 @@ on:
     paths:
       - "src/themes/**"
       - "styles/**"
+      - "family/**"
+      - "dist/family.json"
       - "scripts/**"
       - "app/**"
       - "package.json"

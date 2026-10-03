@@ -4,7 +4,7 @@ Shared theme catalog for Waki apps. The repo publishes a versioned bundle of CSS
 
 ## Current Catalog
 
-The v1.3.0 catalog is organized by **material family** first and **hue variant** second. Variants inside a family usually share the same geometry, blur, density, typography, shadows, and hover behavior; the suffix tells you the colorway. The `System` family intentionally lets Mac and Windows differ structurally to better echo native OS conventions.
+The v1.4.0 catalog is organized by **material family** first and **hue variant** second. Variants inside a family usually share the same geometry, blur, density, typography, shadows, and hover behavior; the suffix tells you the colorway. The `System` family intentionally lets Mac and Windows differ structurally to better echo native OS conventions.
 
 | Family | Variants |
 |---|---|
@@ -19,10 +19,29 @@ The v1.3.0 catalog is organized by **material family** first and **hue variant**
 | Waki Mobile | Plum, Mint, Sunrise, Ocean |
 | Waki Command | Cyan, Lime, Burgundy, Amber |
 | Waki Studio | Cobalt |
+| **Waki Family** | Mac, Boardroom, Graphite, Civic, Cobalt (the five every Waki app offers; see below) |
 
 Theme ids follow the same pattern: `waki-glass-prism`, `waki-academic-ivory`, `waki-command-cyan`, and so on.
 
 This is a breaking catalog cleanup. Older ids such as `glass-v2`, `frosted-glass`, `editorial-academic`, and `v2-*` are no longer in the published bundle; downstream apps should migrate to the new `waki-*` ids.
+
+## The Waki family themes
+
+Every Waki app, native and web, offers the same five themes: **Mac, Boardroom, Graphite, Civic,
+Cobalt**. They are written down once, in [`family/family-themes.mjs`](family/family-themes.mjs):
+the 15 named colour roles per mode the Mac apps use, extended roles (card header, slot, thumbnail,
+secondary and dim text, accent text, text on accent, success, warning, danger, info, progress), and
+two 11-step scales (neutral, accent) for scale-based apps.
+
+- Boardroom and Graphite are WOV's tuned Slate and Paper scales, unchanged; Mac keeps the macOS
+  values; Civic is Waki AI Service's glass; Cobalt is Manager 3dByPixel's palette.
+- `npm run gen:family` resolves them, checks every theme in both modes against WOV's contrast bar
+  (body text 7:1; muted, links, buttons and status text 4.5:1; focus and icons 3:1) and writes
+  `dist/family.json` (published at `https://cdn.wakilabs.dev/waki-themes/family.json`).
+- `npm run gen:v2` then writes `styles/waki-family-<id>.css`; each borrows the geometry, blur and
+  shadows of the theme it came from. The bundle lists them, in order, under `family`.
+- WakiKit imports them with `tools/import_family_themes.py`; web apps list `bundle.family.themes`
+  instead of the whole catalog; WOV can take `scales` straight into its Tailwind remap.
 
 ## Surfaces
 

@@ -12,6 +12,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { FAMILY } from "../src/themes/family.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, "..");
@@ -1117,20 +1118,60 @@ function modeVars(mode, variant) {
   --waki-panel: ${p.panel};
   --waki-panel-2: ${p.panel2};
   --waki-panel-3: ${p.panel3};
-  --waki-bar: ${p.panel2};
+  --waki-bar: ${p.bar ?? p.panel2};
   --waki-border: ${p.border};
   --waki-border-2: ${p.border2};
   --waki-text: ${p.text};
   --waki-muted: ${p.muted};
   --waki-accent: ${p.accent};
   --waki-accent-2: ${p.accent2};
-  --waki-focus: color-mix(in srgb, ${p.accent} 24%, transparent);
+  --waki-focus: ${p.focus ?? `color-mix(in srgb, ${p.accent} 24%, transparent)`};
   --waki-shadow: ${p.shadow};
   --waki-overlay-panel: color-mix(in srgb, ${p.panel2} 38%, ${overlaySolid});
   --waki-overlay-panel-strong: color-mix(in srgb, ${p.panel3} 30%, ${overlaySolidStrong});
   --waki-overlay-border: color-mix(in srgb, ${p.border2} 64%, ${overlayLine});
   --waki-overlay-backdrop: ${overlayBackdrop};
-  --waki-overlay-shadow: ${overlayShadow};`;
+  --waki-overlay-shadow: ${overlayShadow};${extendedVars(p.extended)}`;
+}
+
+/** The family themes' extra roles (card header, slot, thumbnail, status colours…). */
+function extendedVars(extended) {
+  if (!extended) return "";
+  return Object.entries(extended).map(([key, value]) => `\n  --waki-${key}: ${value};`).join("");
+}
+
+/** The Waki family: the five themes every Waki app offers (family/family-themes.mjs, resolved by
+ *  gen-family.mjs). Each borrows the geometry, blur and shadows of the material and variant it came
+ *  from, and paints with the family palette. */
+function familyMaterial() {
+  return {
+    id: "family",
+    name: "Waki Family",
+    description: "The five themes every Waki app offers, the same in the Mac apps and the web apps.",
+    structure: materials.professional.structure,
+    tokens: materials.professional.tokens,
+    variants: FAMILY.themes.map((theme) => {
+      const material = materials[theme.structure.material];
+      const source = material.variants.find((v) => v.slot === theme.structure.variant) ?? {};
+      const extraCss = [material.tokens.extraCss, source.tokens?.extraCss].filter(Boolean).join("\n");
+      const palette = (mode) => {
+        const r = theme.roles[mode];
+        const [blob1, blob2, blob3] = theme.blobs[mode];
+        return {
+          bg1: r["bg-1"], bg2: r["bg-2"], bg3: r["bg-3"], accent: r.accent, accent2: r["accent-2"], text: r.text, muted: r.muted,
+          panel: r.panel, panel2: r["panel-2"], panel3: r["panel-3"], border: r.border, border2: r["border-2"], shadow: r.shadow,
+          bar: r.bar, focus: r.focus, blob1, blob2, blob3, extended: theme.extended[mode],
+        };
+      };
+      return {
+        slot: theme.id,
+        name: theme.name,
+        description: theme.description,
+        modes: { light: palette("light"), dark: palette("dark") },
+        tokens: { ...material.tokens, ...(source.tokens ?? {}), extraCss },
+      };
+    }),
+  };
 }
 
 function themeId(family, variant) {
@@ -1524,6 +1565,8 @@ function paletteHints(p) {
     accent: p.accent,
   };
 }
+
+materials.family = familyMaterial();
 
 mkdirSync(stylesDir, { recursive: true });
 for (const family of Object.values(materials)) {

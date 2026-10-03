@@ -9,6 +9,8 @@ on:
     branches: [main]
     paths:
       - "styles/**"
+      - "family/**"
+      - "dist/family.json"
       - "src/themes/**"
       - "scripts/build-bundle.mjs"
       - "package.json"
