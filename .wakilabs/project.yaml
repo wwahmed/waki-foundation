@@ -1,0 +1,8 @@
+id: wakilabs-cdn
+name: wakilabs-cdn
+displayName: "WakiLabs CDN"
+archetype: web-static
+family: foundation
+conventionsVersion: 1
+foundationPin: null
+registry: ~/workspaces/wakilabs/registry/projects.json
