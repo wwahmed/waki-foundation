@@ -1,4 +1,4 @@
-name: Publish shell.json
+name: shell-publish
 
 # Triggered on push to main, but only when the source config or the
 # build script changes — we don't want a recursive trigger when the
@@ -8,9 +8,10 @@ on:
   push:
     branches: [main]
     paths:
-      - 'src/config/**'
-      - 'package.json'
-      - 'scripts/build-shell-json.ts'
+      - 'packages/shell-web/src/config/**'
+      - 'packages/shell-web/package.json'
+      - 'packages/shell-web/scripts/build-shell-json.ts'
+      - '.github/workflows/shell-publish.yml'
 
 # Built-in GITHUB_TOKEN with explicit `contents: write` is enough to
 # commit back to the repo. No PAT setup required from the repo owner.
@@ -34,19 +35,21 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
+        working-directory: packages/shell-web
         run: npm install
 
       - name: Build dist/shell.json
+        working-directory: packages/shell-web
         run: npm run build
 
       - name: Commit dist/shell.json if changed
         run: |
-          if git diff --quiet dist/shell.json 2>/dev/null; then
+          if git diff --quiet packages/shell-web/dist/shell.json 2>/dev/null; then
             echo "No changes to dist/shell.json; nothing to publish."
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add dist/shell.json
+            git add packages/shell-web/dist/shell.json
             git commit -m "chore: publish dist/shell.json [skip ci]"
             git push
           fi

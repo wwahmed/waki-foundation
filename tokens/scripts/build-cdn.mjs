@@ -59,11 +59,10 @@ if (existsSync(familySrc)) {
   copyFileSync(familySrc, resolve(distSubDir, "family.json"));
 }
 
-// Output B: ~/workspaces/wakilabs-cdn/waki-themes/. The wakilabs-cdn
-// Pages project's deploy command is `wrangler pages deploy
-// ~/workspaces/wakilabs-cdn ...`, so emitting here makes the bundle
-// part of the next cdn.wakilabs.dev deploy automatically.
-const cdnWorkspace = resolve(homedir(), "workspaces", "wakilabs-cdn", "waki-themes");
+// Output B: <waki-foundation>/cdn/waki-themes/, the committed copy inside the CDN site source.
+// deploy-foundation.yml assembles cdn/ plus Output A, so this mirror keeps local builds and the
+// committed cdn/ folder in step with what gets deployed.
+const cdnWorkspace = resolve(repoRoot, "..", "cdn", "waki-themes");
 if (existsSync(resolve(cdnWorkspace, ".."))) {
   mkdirSync(cdnWorkspace, { recursive: true });
   mkdirSync(resolve(cdnWorkspace, "dist"), { recursive: true });
@@ -75,7 +74,7 @@ if (existsSync(resolve(cdnWorkspace, ".."))) {
   );
 } else {
   console.log(
-    `[build-cdn] skipping wakilabs-cdn workspace mirror (not found at ${cdnWorkspace})`,
+    `[build-cdn] skipping cdn/ mirror (not found at ${cdnWorkspace})`,
   );
 }
 

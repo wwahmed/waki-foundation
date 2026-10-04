@@ -1,8 +1,10 @@
-name: deploy-themes
+name: deploy-foundation
 
-# Auto-deploy waki-themes to two Cloudflare Pages projects on every push to main:
-#   - app/dist  -> waki-themes-studio (themes.wakilabs.dev)
-#   - dist/cdn  -> wakilabs-cdn       (cdn.wakilabs.dev)
+# Auto-deploy the foundation to two Cloudflare Pages projects on every push to main:
+#   - tokens/app/dist                         -> waki-themes-studio (themes.wakilabs.dev)
+#   - site/ = cdn/ + tokens/dist/cdn overlay  -> wakilabs-cdn       (cdn.wakilabs.dev)
+# The CDN site is assembled from cdn/ (landing, headers, installers, shell bundles) plus the freshly
+# built waki-themes bundle, so a themes deploy no longer drops the other artifacts.
 #
 # Both Pages projects are Direct Upload type. This workflow is the deploy
 # mechanism. Root has no npm deps; the studio app has its own lockfile under
@@ -19,20 +21,22 @@ on:
   push:
     branches: [main]
     paths:
-      - "src/themes/**"
-      - "styles/**"
-      - "family/**"
-      - "dist/family.json"
-      - "scripts/**"
-      - "app/**"
-      - "package.json"
-      - "package-lock.json"
-      - ".github/workflows/deploy-themes.yml"
+      - "tokens/src/themes/**"
+      - "tokens/styles/**"
+      - "tokens/family/**"
+      - "tokens/dist/family.json"
+      - "tokens/scripts/**"
+      - "tokens/app/**"
+      - "tokens/package.json"
+      - "tokens/package-lock.json"
+      - "cdn/**"
+      - "packages/shell-web/dist/**"
+      - ".github/workflows/deploy-foundation.yml"
       - ".github/scripts/append-changelog.mjs"
   workflow_dispatch: {}
 
 concurrency:
-  group: deploy-themes-${{ github.ref }}
+  group: deploy-foundation-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -50,31 +54,33 @@ jobs:
         with:
           node-version: "20"
           cache: npm
-          cache-dependency-path: app/package-lock.json
+          cache-dependency-path: tokens/app/package-lock.json
 
       - name: Cache Vite build outputs (studio)
         uses: actions/cache@v4
         with:
           path: |
-            app/node_modules/.vite
-            app/.vite-cache
-          key: vite-studio-${{ hashFiles('app/package-lock.json', 'app/vite.config.ts') }}-${{ hashFiles('app/src/**/*', 'src/themes/**/*', 'styles/**/*') }}
+            tokens/app/node_modules/.vite
+            tokens/app/.vite-cache
+          key: vite-studio-${{ hashFiles('tokens/app/package-lock.json', 'tokens/app/vite.config.ts') }}-${{ hashFiles('tokens/app/src/**/*', 'tokens/src/themes/**/*', 'tokens/styles/**/*') }}
           restore-keys: |
-            vite-studio-${{ hashFiles('app/package-lock.json', 'app/vite.config.ts') }}-
+            vite-studio-${{ hashFiles('tokens/app/package-lock.json', 'tokens/app/vite.config.ts') }}-
             vite-studio-
 
       - name: Build bundle (root, no deps; node-only)
+        working-directory: tokens
         run: node scripts/build-bundle.mjs
 
       - name: Shape Foundation CDN bundle
+        working-directory: tokens
         run: node scripts/build-cdn.mjs
 
       - name: Install studio deps
-        working-directory: app
+        working-directory: tokens/app
         run: npm ci --prefer-offline --no-audit
 
       - name: Sync bundle into studio + build studio
-        working-directory: app
+        working-directory: tokens/app
         run: |
           npm run sync-bundle
           npm run build
@@ -86,11 +92,12 @@ jobs:
           COMMIT_MSG: ${{ github.event.head_commit.message }}
           COMMIT_SHA: ${{ github.sha }}
           CHANGELOG_LIVE_URL: https://themes.wakilabs.dev/changelog.json
-          CHANGELOG_DIST_PATH: app/dist/changelog.json
-          PACKAGE_JSON_PATH: app/package.json
+          CHANGELOG_DIST_PATH: tokens/app/dist/changelog.json
+          PACKAGE_JSON_PATH: tokens/app/package.json
         run: node .github/scripts/append-changelog.mjs
 
       - name: Bundle size summary
+        working-directory: tokens
         # Workflow-only bundle telemetry. Captures size of both shipped
         # surfaces (studio app + cdn bundle) so regressions show up in
         # the run summary plus the artifact archive.
@@ -122,7 +129,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: waki-themes-bundle-stats-${{ github.sha }}
-          path: dist-stats.md
+          path: tokens/dist-stats.md
           retention-days: 30
           if-no-files-found: warn
 
@@ -133,12 +140,23 @@ jobs:
           COMMIT_SUBJECT: ${{ github.event.head_commit.message }}
         run: |
           SUBJECT=$(printf "%s" "$COMMIT_SUBJECT" | head -1 | tr -d '\r')
-          npx --yes wrangler@4 pages deploy app/dist \
+          npx --yes wrangler@4 pages deploy tokens/app/dist \
             --project-name=waki-themes-studio \
             --branch=main \
             --commit-dirty=true \
             --commit-hash=${{ github.sha }} \
             --commit-message="$SUBJECT"
+
+      - name: Assemble the CDN site (cdn/ + fresh waki-themes bundle)
+        run: |
+          mkdir -p site
+          # cdn/waki-ai-service (retired installer pipeline) and cdn/waki-shell are NOT deployed: neither has been
+          # live since the last themes deploy, and serving them would change what clients receive. Re-enable
+          # deliberately (remove the exclude) when the shell or an installer should go live.
+          rsync -a --exclude '.wakilabs' --exclude 'AGENTS.md' --exclude 'CLAUDE.md' --exclude 'README.md' \
+            --exclude 'docs' --exclude '.gitignore' --exclude 'waki-ai-service' --exclude 'waki-shell' cdn/ site/
+          rsync -a tokens/dist/cdn/ site/
+          find site -maxdepth 2 | sort | head -40
 
       - name: Deploy dist/cdn to wakilabs-cdn (cdn.wakilabs.dev)
         env:
@@ -147,7 +165,7 @@ jobs:
           COMMIT_SUBJECT: ${{ github.event.head_commit.message }}
         run: |
           SUBJECT=$(printf "%s" "$COMMIT_SUBJECT" | head -1 | tr -d '\r')
-          npx --yes wrangler@4 pages deploy dist/cdn \
+          npx --yes wrangler@4 pages deploy site \
             --project-name=wakilabs-cdn \
             --branch=main \
             --commit-dirty=true \

@@ -8,12 +8,13 @@ on:
   push:
     branches: [main]
     paths:
-      - "styles/**"
-      - "family/**"
-      - "dist/family.json"
-      - "src/themes/**"
-      - "scripts/build-bundle.mjs"
-      - "package.json"
+      - "tokens/styles/**"
+      - "tokens/family/**"
+      - "tokens/dist/family.json"
+      - "tokens/src/themes/**"
+      - "tokens/scripts/build-bundle.mjs"
+      - "tokens/package.json"
+      - ".github/workflows/themes-build-bundle.yml"
 
 permissions:
   contents: write
@@ -33,16 +34,17 @@ jobs:
           node-version: "20"
 
       - name: Build bundle
+        working-directory: tokens
         run: node scripts/build-bundle.mjs
 
       - name: Commit rebuilt bundle if changed
         run: |
-          if git diff --quiet dist/themes.json; then
+          if git diff --quiet tokens/dist/themes.json; then
             echo "No changes to dist/themes.json; nothing to publish."
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add dist/themes.json
+            git add tokens/dist/themes.json
             # [skip ci] keeps this commit from re-triggering the workflow
             # in a loop. The bot's auto-commit is bundle-only; nothing
             # else needs CI to react to it.
