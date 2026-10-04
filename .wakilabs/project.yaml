@@ -1,0 +1,8 @@
+id: waki-themes
+name: waki-themes
+displayName: "Waki Themes"
+archetype: artifact
+family: foundation
+conventionsVersion: 1
+foundationPin: null
+registry: ~/workspaces/wakilabs/registry/projects.json
