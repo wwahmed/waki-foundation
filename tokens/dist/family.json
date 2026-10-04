@@ -1,0 +1,669 @@
+{
+  "schemaVersion": 1,
+  "pkgVersion": "2.0.0",
+  "defaultId": "mac",
+  "roleKeys": [
+    "bg-1",
+    "bg-2",
+    "bg-3",
+    "panel",
+    "panel-2",
+    "panel-3",
+    "bar",
+    "border",
+    "border-2",
+    "text",
+    "muted",
+    "accent",
+    "accent-2",
+    "focus",
+    "shadow"
+  ],
+  "extendedKeys": [
+    "panel-head",
+    "slot",
+    "thumb",
+    "text-2",
+    "dim",
+    "accent-text",
+    "on-accent",
+    "success",
+    "warning",
+    "warning-text",
+    "danger",
+    "info",
+    "progress"
+  ],
+  "themes": [
+    {
+      "id": "mac",
+      "webId": "waki-family-mac",
+      "name": "Mac",
+      "description": "Neutral surfaces and the macOS system blue. Feels at home next to every other Mac app.",
+      "structure": {
+        "material": "system",
+        "variant": "mac"
+      },
+      "fonts": null,
+      "roles": {
+        "light": {
+          "bg-1": "#f5f5f7",
+          "bg-2": "#eceef2",
+          "bg-3": "#ffffff",
+          "panel": "rgba(255,255,255,.72)",
+          "panel-2": "rgba(255,255,255,.92)",
+          "panel-3": "#f2f2f7",
+          "bar": "rgba(255,255,255,.86)",
+          "border": "rgba(60,60,67,.16)",
+          "border-2": "rgba(0,122,255,.35)",
+          "text": "#1d1d1f",
+          "muted": "#6e6e73",
+          "accent": "#007aff",
+          "accent-2": "#5e5ce6",
+          "focus": "rgba(0,122,255,.28)",
+          "shadow": "rgba(0,0,0,.12)"
+        },
+        "dark": {
+          "bg-1": "#1c1c1e",
+          "bg-2": "#141416",
+          "bg-3": "#232326",
+          "panel": "rgba(44,44,46,.72)",
+          "panel-2": "rgba(58,58,60,.85)",
+          "panel-3": "#2c2c2e",
+          "bar": "rgba(28,28,30,.9)",
+          "border": "rgba(84,84,88,.55)",
+          "border-2": "rgba(10,132,255,.45)",
+          "text": "#f5f5f7",
+          "muted": "#a1a1a6",
+          "accent": "#0a84ff",
+          "accent-2": "#5e5ce6",
+          "focus": "rgba(10,132,255,.32)",
+          "shadow": "rgba(0,0,0,.5)"
+        }
+      },
+      "extended": {
+        "light": {
+          "panel-head": "#e3effd",
+          "slot": "#e9eff7",
+          "thumb": "#d9eafd",
+          "text-2": "#414145",
+          "dim": "#909094",
+          "accent-text": "#0371e9",
+          "on-accent": "#1d1d1f",
+          "success": "#047857",
+          "warning": "#b45309",
+          "warning-text": "#b45309",
+          "danger": "#be123c",
+          "info": "#0371e9",
+          "progress": "linear-gradient(90deg, #007aff, #5e5ce6)"
+        },
+        "dark": {
+          "panel-head": "#323234",
+          "slot": "#363638",
+          "thumb": "#222224",
+          "text-2": "#cfcfd3",
+          "dim": "#808084",
+          "accent-text": "#228ffe",
+          "on-accent": "#0b0b10",
+          "success": "#6ee7b7",
+          "warning": "#fcd34d",
+          "warning-text": "#fcd34d",
+          "danger": "#fda4af",
+          "info": "#228ffe",
+          "progress": "linear-gradient(90deg, #0a84ff, #5e5ce6)"
+        }
+      },
+      "blobs": {
+        "light": [
+          "rgba(0, 122, 255, 0.1)",
+          "rgba(94, 92, 230, 0.06)",
+          "rgba(255, 255, 255, 0)"
+        ],
+        "dark": [
+          "rgba(10, 132, 255, 0.16)",
+          "rgba(94, 92, 230, 0.08)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      "scales": {
+        "neutral": {
+          "50": "#f5f5f7",
+          "100": "#eeeef1",
+          "200": "#e2e3e6",
+          "300": "#cecfd3",
+          "400": "#a2a2a9",
+          "500": "#6a6971",
+          "600": "#53535a",
+          "700": "#3d3c42",
+          "800": "#29292d",
+          "900": "#1c1c1f",
+          "950": "#141417"
+        },
+        "accent": {
+          "50": "#edf4fe",
+          "100": "#dceaff",
+          "200": "#bcd8ff",
+          "300": "#98c1fd",
+          "400": "#68a5fd",
+          "500": "#2b84fb",
+          "600": "#1165ce",
+          "700": "#1054aa",
+          "800": "#1a4887",
+          "900": "#1e395f",
+          "950": "#1f2937"
+        }
+      },
+      "migratesFrom": [
+        "mac",
+        "waki-system-mac",
+        "waki-system-windows"
+      ]
+    },
+    {
+      "id": "boardroom",
+      "webId": "waki-family-boardroom",
+      "name": "Boardroom",
+      "description": "Cool blue-grey with a clear blue accent. The Waki professional look.",
+      "structure": {
+        "material": "professional",
+        "variant": "boardroom"
+      },
+      "fonts": null,
+      "roles": {
+        "light": {
+          "bg-1": "#f3f7fa",
+          "bg-2": "#eef2f7",
+          "bg-3": "#ffffff",
+          "panel": "#ffffff",
+          "panel-2": "#ffffff",
+          "panel-3": "#eef2f7",
+          "bar": "#ffffff",
+          "border": "#e0e7ef",
+          "border-2": "#c7d1de",
+          "text": "#243550",
+          "muted": "#5b6d86",
+          "accent": "#0571bd",
+          "accent-2": "#4b5f7d",
+          "focus": "rgba(10, 144, 227, 0.35)",
+          "shadow": "rgba(36, 53, 80, 0.1)"
+        },
+        "dark": {
+          "bg-1": "#142640",
+          "bg-2": "#0f1c30",
+          "bg-3": "#243550",
+          "panel": "#243550",
+          "panel-2": "#324663",
+          "panel-3": "#142640",
+          "bar": "#243550",
+          "border": "#3d5273",
+          "border-2": "#4b5f7d",
+          "text": "#eef2f7",
+          "muted": "#a7b5c8",
+          "accent": "#64bcfe",
+          "accent-2": "#c7d1de",
+          "focus": "rgba(100, 188, 254, 0.4)",
+          "shadow": "rgba(0, 0, 0, 0.45)"
+        }
+      },
+      "extended": {
+        "light": {
+          "panel-head": "#e6f1f8",
+          "slot": "#e7f0f7",
+          "thumb": "#dcebf6",
+          "text-2": "#3d4e68",
+          "dim": "#8190a3",
+          "accent-text": "#0571bd",
+          "on-accent": "#ffffff",
+          "success": "#047857",
+          "warning": "#b45309",
+          "warning-text": "#b45309",
+          "danger": "#be123c",
+          "info": "#0571bd",
+          "progress": "linear-gradient(90deg, #0571bd, #4b5f7d)"
+        },
+        "dark": {
+          "panel-head": "#2e3e58",
+          "slot": "#32425c",
+          "thumb": "#1c2e48",
+          "text-2": "#ced7e2",
+          "dim": "#8291a6",
+          "accent-text": "#64bcfe",
+          "on-accent": "#0b0b10",
+          "success": "#6ee7b7",
+          "warning": "#fcd34d",
+          "warning-text": "#fcd34d",
+          "danger": "#fda4af",
+          "info": "#64bcfe",
+          "progress": "linear-gradient(90deg, #64bcfe, #c7d1de)"
+        }
+      },
+      "blobs": {
+        "light": [
+          "rgba(5, 113, 189, 0.1)",
+          "rgba(75, 95, 125, 0.06)",
+          "rgba(255, 255, 255, 0)"
+        ],
+        "dark": [
+          "rgba(100, 188, 254, 0.16)",
+          "rgba(199, 209, 222, 0.08)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      "scales": {
+        "neutral": {
+          "50": "#f3f7fa",
+          "100": "#eef2f7",
+          "200": "#e0e7ef",
+          "300": "#c7d1de",
+          "400": "#a7b5c8",
+          "500": "#5b6d86",
+          "600": "#4b5f7d",
+          "700": "#3d5273",
+          "800": "#324663",
+          "900": "#243550",
+          "950": "#142640"
+        },
+        "accent": {
+          "50": "#ecf6fe",
+          "100": "#d8edff",
+          "200": "#b4dcfe",
+          "300": "#86cafe",
+          "400": "#64bcfe",
+          "500": "#0a90e3",
+          "600": "#0571bd",
+          "700": "#005ca4",
+          "800": "#094a89",
+          "900": "#103c6b",
+          "950": "#102e52"
+        }
+      },
+      "migratesFrom": [
+        "boardroom",
+        "waki-professional-boardroom",
+        "professional",
+        "corporate"
+      ]
+    },
+    {
+      "id": "graphite",
+      "webId": "waki-family-graphite",
+      "name": "Graphite",
+      "description": "Warm stone and paper tones with a deep amber accent. Easy on the eyes.",
+      "structure": {
+        "material": "desktop",
+        "variant": "graphite"
+      },
+      "fonts": null,
+      "roles": {
+        "light": {
+          "bg-1": "#f7f4f0",
+          "bg-2": "#f1ede8",
+          "bg-3": "#ffffff",
+          "panel": "#ffffff",
+          "panel-2": "#ffffff",
+          "panel-3": "#f1ede8",
+          "bar": "#ffffff",
+          "border": "#e5e0da",
+          "border-2": "#d3cdc5",
+          "text": "#201d1b",
+          "muted": "#706963",
+          "accent": "#aa4f02",
+          "accent-2": "#59524e",
+          "focus": "rgba(208, 112, 26, 0.35)",
+          "shadow": "rgba(32, 29, 27, 0.1)"
+        },
+        "dark": {
+          "bg-1": "#171514",
+          "bg-2": "#11100f",
+          "bg-3": "#201d1b",
+          "panel": "#201d1b",
+          "panel-2": "#2d2a27",
+          "panel-3": "#171514",
+          "bar": "#201d1b",
+          "border": "#423d3a",
+          "border-2": "#59524e",
+          "text": "#f1ede8",
+          "muted": "#a9a19b",
+          "accent": "#ea913c",
+          "accent-2": "#d3cdc5",
+          "focus": "rgba(234, 145, 60, 0.4)",
+          "shadow": "rgba(0, 0, 0, 0.45)"
+        }
+      },
+      "extended": {
+        "light": {
+          "panel-head": "#f7ede6",
+          "slot": "#f3ece4",
+          "thumb": "#f3e6dc",
+          "text-2": "#443f3b",
+          "dim": "#928c86",
+          "accent-text": "#aa4f02",
+          "on-accent": "#ffffff",
+          "success": "#047857",
+          "warning": "#b45309",
+          "warning-text": "#b45309",
+          "danger": "#be123c",
+          "info": "#aa4f02",
+          "progress": "linear-gradient(90deg, #aa4f02, #59524e)"
+        },
+        "dark": {
+          "panel-head": "#2a2725",
+          "slot": "#2f2c29",
+          "thumb": "#1c1918",
+          "text-2": "#d1cbc5",
+          "dim": "#857e79",
+          "accent-text": "#ea913c",
+          "on-accent": "#0b0b10",
+          "success": "#6ee7b7",
+          "warning": "#fcd34d",
+          "warning-text": "#fcd34d",
+          "danger": "#fda4af",
+          "info": "#ea913c",
+          "progress": "linear-gradient(90deg, #ea913c, #d3cdc5)"
+        }
+      },
+      "blobs": {
+        "light": [
+          "rgba(170, 79, 2, 0.1)",
+          "rgba(89, 82, 78, 0.06)",
+          "rgba(255, 255, 255, 0)"
+        ],
+        "dark": [
+          "rgba(234, 145, 60, 0.16)",
+          "rgba(211, 205, 197, 0.08)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      "scales": {
+        "neutral": {
+          "50": "#f7f4f0",
+          "100": "#f1ede8",
+          "200": "#e5e0da",
+          "300": "#d3cdc5",
+          "400": "#a9a19b",
+          "500": "#706963",
+          "600": "#59524e",
+          "700": "#423d3a",
+          "800": "#2d2a27",
+          "900": "#201d1b",
+          "950": "#171514"
+        },
+        "accent": {
+          "50": "#fef2e1",
+          "100": "#ffe3c1",
+          "200": "#fec88c",
+          "300": "#f4a85b",
+          "400": "#ea913c",
+          "500": "#d0701a",
+          "600": "#aa4f02",
+          "700": "#8d3f0e",
+          "800": "#75391b",
+          "900": "#5d2f19",
+          "950": "#422214"
+        }
+      },
+      "migratesFrom": [
+        "graphite",
+        "waki-desktop-graphite",
+        "academic",
+        "command"
+      ]
+    },
+    {
+      "id": "civic",
+      "webId": "waki-family-civic",
+      "name": "Civic",
+      "description": "Navy glass with an amber glow. Waki AI Service's look.",
+      "structure": {
+        "material": "glass",
+        "variant": "civic"
+      },
+      "fonts": null,
+      "roles": {
+        "light": {
+          "bg-1": "color-mix(in srgb, #eef4ff 88%, #2563eb)",
+          "bg-2": "color-mix(in srgb, #fff8ea 88%, #d97706)",
+          "bg-3": "color-mix(in srgb, #f8fbff 76%, #eef4ff)",
+          "panel": "color-mix(in srgb, rgba(255,255,255,.68) 70%, #eef4ff)",
+          "panel-2": "color-mix(in srgb, rgba(255,255,255,.84) 76%, #fff8ea)",
+          "panel-3": "color-mix(in srgb, #eef4ff 92%, #2563eb)",
+          "bar": "color-mix(in srgb, rgba(255,255,255,.84) 76%, #fff8ea)",
+          "border": "color-mix(in srgb, rgba(37,99,235,.22) 82%, #2563eb)",
+          "border-2": "color-mix(in srgb, rgba(251,191,36,.28) 78%, #d97706)",
+          "text": "#12213d",
+          "muted": "#56667c",
+          "accent": "#2563eb",
+          "accent-2": "#d97706",
+          "focus": "rgba(37,99,235,.24)",
+          "shadow": "color-mix(in srgb, rgba(30,64,175,.16) 84%, #2563eb)"
+        },
+        "dark": {
+          "bg-1": "#061329",
+          "bg-2": "#24180a",
+          "bg-3": "#071b2b",
+          "panel": "rgba(37,99,235,.14)",
+          "panel-2": "rgba(10,27,57,.78)",
+          "panel-3": "rgba(33,25,13,.74)",
+          "bar": "rgba(10,27,57,.78)",
+          "border": "rgba(251,191,36,.26)",
+          "border-2": "rgba(96,165,250,.24)",
+          "text": "#edf4ff",
+          "muted": "#b6c4d9",
+          "accent": "#60a5fa",
+          "accent-2": "#fbbf24",
+          "focus": "rgba(96,165,250,.24)",
+          "shadow": "rgba(0,0,0,.45)"
+        }
+      },
+      "extended": {
+        "light": {
+          "panel-head": "#dde6fc",
+          "slot": "#cdddfc",
+          "thumb": "#d4e1fb",
+          "text-2": "#314059",
+          "dim": "#76859c",
+          "accent-text": "#2563eb",
+          "on-accent": "#ffffff",
+          "success": "#047857",
+          "warning": "#b45309",
+          "warning-text": "#b45309",
+          "danger": "#be123c",
+          "info": "#2563eb",
+          "progress": "linear-gradient(90deg, #2563eb, #d97706)"
+        },
+        "dark": {
+          "panel-head": "#15294d",
+          "slot": "#1a2d51",
+          "thumb": "#081837",
+          "text-2": "#d4deee",
+          "dim": "#8a98ad",
+          "accent-text": "#60a5fa",
+          "on-accent": "#0b0b10",
+          "success": "#6ee7b7",
+          "warning": "#fcd34d",
+          "warning-text": "#fcd34d",
+          "danger": "#fda4af",
+          "info": "#60a5fa",
+          "progress": "linear-gradient(90deg, #60a5fa, #fbbf24)"
+        }
+      },
+      "blobs": {
+        "light": [
+          "rgba(37,99,235,.12)",
+          "rgba(217,119,6,.1)",
+          "rgba(96,165,250,.08)"
+        ],
+        "dark": [
+          "rgba(37,99,235,.24)",
+          "rgba(251,191,36,.12)",
+          "rgba(15,118,110,.1)"
+        ]
+      },
+      "scales": {
+        "neutral": {
+          "50": "#f2f7ff",
+          "100": "#ecf2fc",
+          "200": "#dae7fc",
+          "300": "#bbd1f7",
+          "400": "#9eb5db",
+          "500": "#596c8e",
+          "600": "#4d5f7d",
+          "700": "#43526b",
+          "800": "#3b4658",
+          "900": "#2e3540",
+          "950": "#23262a"
+        },
+        "accent": {
+          "50": "#f0f5fe",
+          "100": "#e0ebff",
+          "200": "#c4d8fe",
+          "300": "#a4c4ff",
+          "400": "#8eb5fe",
+          "500": "#4d86fb",
+          "600": "#3769d1",
+          "700": "#2e57ac",
+          "800": "#294786",
+          "900": "#273b61",
+          "950": "#262e3c"
+        }
+      },
+      "migratesFrom": [
+        "civic",
+        "waki-glass-civic",
+        "glass"
+      ]
+    },
+    {
+      "id": "cobalt",
+      "webId": "waki-family-cobalt",
+      "name": "Cobalt",
+      "description": "Midnight navy with cobalt and indigo. Manager 3dByPixel's look.",
+      "structure": {
+        "material": "studio",
+        "variant": "cobalt"
+      },
+      "fonts": {
+        "body": "\"IBM Plex Sans\"",
+        "mono": "\"IBM Plex Mono\""
+      },
+      "roles": {
+        "light": {
+          "bg-1": "#ffffff",
+          "bg-2": "#f4f7fe",
+          "bg-3": "#ffffff",
+          "panel": "#fdfdff",
+          "panel-2": "#e6ecfa",
+          "panel-3": "#d6e0f8",
+          "bar": "#e6ecfa",
+          "border": "rgba(20,32,80,.16)",
+          "border-2": "rgba(20,32,80,.2)",
+          "text": "#0f1732",
+          "muted": "#4a5480",
+          "accent": "#1746d8",
+          "accent-2": "#5b2fd6",
+          "focus": "rgba(23,70,216,.24)",
+          "shadow": "rgba(15,23,50,.1)"
+        },
+        "dark": {
+          "bg-1": "#080b14",
+          "bg-2": "#0c1122",
+          "bg-3": "#0a0e1b",
+          "panel": "#161c34",
+          "panel-2": "#101528",
+          "panel-3": "#1a2140",
+          "bar": "#101528",
+          "border": "rgba(255,255,255,.08)",
+          "border-2": "rgba(255,255,255,.15)",
+          "text": "#e6e9f7",
+          "muted": "#949dc0",
+          "accent": "#7fa5ff",
+          "accent-2": "#a98cff",
+          "focus": "rgba(127,165,255,.24)",
+          "shadow": "rgba(0,0,0,.5)"
+        }
+      },
+      "extended": {
+        "light": {
+          "panel-head": "#d6e0f8",
+          "slot": "#eef3fe",
+          "thumb": "#d5ddf4",
+          "text-2": "#333d63",
+          "dim": "#6a749c",
+          "accent-text": "#1235a6",
+          "on-accent": "#ffffff",
+          "success": "#047857",
+          "warning": "#c07a08",
+          "warning-text": "#8f5b06",
+          "danger": "#c0354f",
+          "info": "#0877b2",
+          "progress": "linear-gradient(90deg, #1746d8, #5b2fd6)"
+        },
+        "dark": {
+          "panel-head": "#1a2140",
+          "slot": "#1c2344",
+          "thumb": "#0e1322",
+          "text-2": "#b4bcda",
+          "dim": "#727b9e",
+          "accent-text": "#a8c0ff",
+          "on-accent": "#12131a",
+          "success": "#6ee7b7",
+          "warning": "#f0b84f",
+          "warning-text": "#f0b84f",
+          "danger": "#f0768a",
+          "info": "#4fb8f0",
+          "progress": "linear-gradient(90deg, #7fa5ff, #a98cff)"
+        }
+      },
+      "blobs": {
+        "light": [
+          "rgba(23, 70, 216, 0.1)",
+          "rgba(91, 47, 214, 0.06)",
+          "rgba(255, 255, 255, 0)"
+        ],
+        "dark": [
+          "rgba(127, 165, 255, 0.16)",
+          "rgba(169, 140, 255, 0.08)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      "scales": {
+        "neutral": {
+          "50": "#f4f6fe",
+          "100": "#eef1fd",
+          "200": "#dfe6fc",
+          "300": "#c5cff1",
+          "400": "#a9b3d5",
+          "500": "#626b89",
+          "600": "#555d78",
+          "700": "#4a5167",
+          "800": "#404555",
+          "900": "#31343f",
+          "950": "#24262a"
+        },
+        "accent": {
+          "50": "#f1f5fd",
+          "100": "#e1ebfe",
+          "200": "#c5d8ff",
+          "300": "#a7c3fe",
+          "400": "#92b4fd",
+          "500": "#5285fd",
+          "600": "#3a67d7",
+          "700": "#3055b1",
+          "800": "#2a4789",
+          "900": "#283a63",
+          "950": "#262e3d"
+        }
+      },
+      "migratesFrom": [
+        "cobalt",
+        "waki-studio-cobalt",
+        "studio"
+      ]
+    }
+  ],
+  "wovMigration": {
+    "slate": "boardroom",
+    "paper": "graphite",
+    "graphite": "mac"
+  }
+}

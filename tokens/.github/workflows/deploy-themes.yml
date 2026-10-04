@@ -1,0 +1,155 @@
+name: deploy-themes
+
+# Auto-deploy waki-themes to two Cloudflare Pages projects on every push to main:
+#   - app/dist  -> waki-themes-studio (themes.wakilabs.dev)
+#   - dist/cdn  -> wakilabs-cdn       (cdn.wakilabs.dev)
+#
+# Both Pages projects are Direct Upload type. This workflow is the deploy
+# mechanism. Root has no npm deps; the studio app has its own lockfile under
+# `app/`. Build sequence: bundle -> studio.
+#
+# Speed optimizations:
+#   - paths filter limits triggers to source code, build scripts, and the
+#     workflow itself.
+#   - npm cache + Vite cache shave most of the build time off warm runs.
+#   - concurrency.cancel-in-progress cancels older runs mid-deploy when a
+#     newer push lands.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/themes/**"
+      - "styles/**"
+      - "family/**"
+      - "dist/family.json"
+      - "scripts/**"
+      - "app/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/deploy-themes.yml"
+      - ".github/scripts/append-changelog.mjs"
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-themes-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Use Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - name: Cache Vite build outputs (studio)
+        uses: actions/cache@v4
+        with:
+          path: |
+            app/node_modules/.vite
+            app/.vite-cache
+          key: vite-studio-${{ hashFiles('app/package-lock.json', 'app/vite.config.ts') }}-${{ hashFiles('app/src/**/*', 'src/themes/**/*', 'styles/**/*') }}
+          restore-keys: |
+            vite-studio-${{ hashFiles('app/package-lock.json', 'app/vite.config.ts') }}-
+            vite-studio-
+
+      - name: Build bundle (root, no deps; node-only)
+        run: node scripts/build-bundle.mjs
+
+      - name: Shape Foundation CDN bundle
+        run: node scripts/build-cdn.mjs
+
+      - name: Install studio deps
+        working-directory: app
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Sync bundle into studio + build studio
+        working-directory: app
+        run: |
+          npm run sync-bundle
+          npm run build
+
+      - name: Append changelog entry from commit message
+        # Studio surface only; CDN at cdn.wakilabs.dev intentionally has
+        # no changelog (it's a machine-readable artifact endpoint).
+        env:
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+          COMMIT_SHA: ${{ github.sha }}
+          CHANGELOG_LIVE_URL: https://themes.wakilabs.dev/changelog.json
+          CHANGELOG_DIST_PATH: app/dist/changelog.json
+          PACKAGE_JSON_PATH: app/package.json
+        run: node .github/scripts/append-changelog.mjs
+
+      - name: Bundle size summary
+        # Workflow-only bundle telemetry. Captures size of both shipped
+        # surfaces (studio app + cdn bundle) so regressions show up in
+        # the run summary plus the artifact archive.
+        run: |
+          {
+            echo "# waki-themes bundle (sha ${GITHUB_SHA::7})"
+            echo
+            echo "## Studio (app/dist)"
+            echo
+            echo '```'
+            du -sh app/dist
+            (cd app/dist && find . -type f -printf '%s %p\n' 2>/dev/null \
+              || find app/dist -type f -exec stat -f '%z %N' {} \;) \
+              | sort -rn | head -20
+            echo '```'
+            echo
+            echo "## CDN (dist/cdn)"
+            echo
+            echo '```'
+            du -sh dist/cdn
+            (cd dist/cdn && find . -type f -printf '%s %p\n' 2>/dev/null \
+              || find dist/cdn -type f -exec stat -f '%z %N' {} \;) \
+              | sort -rn | head -20
+            echo '```'
+          } > dist-stats.md
+          cat dist-stats.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload bundle stats artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: waki-themes-bundle-stats-${{ github.sha }}
+          path: dist-stats.md
+          retention-days: 30
+          if-no-files-found: warn
+
+      - name: Deploy app/dist to waki-themes-studio (themes.wakilabs.dev)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          COMMIT_SUBJECT: ${{ github.event.head_commit.message }}
+        run: |
+          SUBJECT=$(printf "%s" "$COMMIT_SUBJECT" | head -1 | tr -d '\r')
+          npx --yes wrangler@4 pages deploy app/dist \
+            --project-name=waki-themes-studio \
+            --branch=main \
+            --commit-dirty=true \
+            --commit-hash=${{ github.sha }} \
+            --commit-message="$SUBJECT"
+
+      - name: Deploy dist/cdn to wakilabs-cdn (cdn.wakilabs.dev)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          COMMIT_SUBJECT: ${{ github.event.head_commit.message }}
+        run: |
+          SUBJECT=$(printf "%s" "$COMMIT_SUBJECT" | head -1 | tr -d '\r')
+          npx --yes wrangler@4 pages deploy dist/cdn \
+            --project-name=wakilabs-cdn \
+            --branch=main \
+            --commit-dirty=true \
+            --commit-hash=${{ github.sha }} \
+            --commit-message="$SUBJECT"

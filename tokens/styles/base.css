@@ -1,0 +1,109 @@
+/* ============================================================================
+ * waki-themes / base.css
+ * ----------------------------------------------------------------------------
+ * Shared fundamentals every theme inherits: typography reset, font stack,
+ * the .dark / .light class contract for dark-mode toggling, and a small set
+ * of utility classes that the demo HTML uses regardless of which theme is
+ * active. Each theme file (flat.css / glass-v1.css / glass-v2.css) layers
+ * on top — they only override what's visually distinct.
+ * ============================================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html { color-scheme: light; }
+html.dark { color-scheme: dark; }
+
+/* Theme switcher pill — sits floating top-right, semi-transparent so it
+   reads on any theme. Picked-state button uses a vivid sky tint so the
+   active theme is unmistakable. */
+.switcher {
+  position: fixed;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.25rem;
+  padding: 0.3rem 0.4rem;
+  border-radius: 1.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  user-select: none;
+  /* Cap the width so 18 theme buttons wrap to 2-3 rows instead of
+     extending across the whole viewport. The pill stays anchored
+     top-right and grows downward. */
+  max-width: min(540px, calc(100vw - 1.5rem));
+}
+.switcher button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  padding: 0.3rem 0.7rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: 600;
+  transition: background-color 150ms ease-out;
+}
+.switcher button:hover { background-color: rgba(0, 0, 0, 0.05); }
+html.dark .switcher button:hover { background-color: rgba(255, 255, 255, 0.08); }
+.switcher button.active {
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  color: white;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+.switcher .divider {
+  width: 1px;
+  height: 1.1rem;
+  background-color: currentColor;
+  opacity: 0.25;
+  margin: 0 0.25rem;
+}
+
+/* Optional shell/demo primitives. Individual themes can override these;
+   base keeps new shell samples readable when an older theme is selected. */
+.panel-nested {
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  border-radius: 0.875rem;
+}
+html.dark .panel-nested {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.theme-swatch {
+  background: linear-gradient(135deg, #6366f1, #06b6d4, #ec4899);
+}
+.theme-switcher {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+}
+html.dark .theme-switcher {
+  background: rgba(15, 23, 42, 0.74);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.nav-item {
+  color: inherit;
+}

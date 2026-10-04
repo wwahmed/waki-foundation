@@ -1,0 +1,26 @@
+# Cloudflare Pages config for the Theme Studio.
+#
+# Deployed at: themes.wakilabs.dev (auth-gated via Cloudflare Access)
+# Source repo: https://github.com/wwahmed/waki-themes (this repo, app/)
+#
+# Two deploy paths:
+#
+#   1. Connected via the Cloudflare dashboard (preferred for ongoing
+#      auto-deploys on push to main). Settings recorded in
+#      ../.cloudflare-pages.toml.
+#
+#   2. Direct via wrangler (for one-off deploys when CF auth is set up
+#      via CLOUDFLARE_API_TOKEN). Run from the app/ directory:
+#
+#        npm run build
+#        wrangler pages deploy dist \
+#          --project-name=waki-themes-studio \
+#          --branch=main \
+#          --commit-dirty=true
+#
+# The first wrangler deploy creates the project. Subsequent deploys
+# push to the same project.
+
+name = "waki-themes-studio"
+pages_build_output_dir = "dist"
+compatibility_date = "2025-01-01"

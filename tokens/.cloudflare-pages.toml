@@ -1,0 +1,45 @@
+# Cloudflare Pages configuration reference. The dashboard is the
+# source of truth for build settings; this file documents the
+# expected values so they can be re-applied if the projects are
+# recreated or migrated. See docs/DEPLOY.md for the full setup.
+#
+# This repo runs TWO Cloudflare Pages projects (Option A: one source,
+# two output directories). See docs/DEPLOY.md for the rationale.
+#
+# ----------------------------------------------------------------------------
+# Project 1: waki-themes-studio  (gated authoring)
+# ----------------------------------------------------------------------------
+# Custom domain:        themes.wakilabs.dev
+# Production branch:    main
+# Build command:        cd app && npm install && npm run build
+# Build output dir:     app/dist
+# Root dir:             /
+# Node version:         20
+# Environment vars:     none required for production
+# Access policy:        Cloudflare Access -> Google OAuth, family Gmail
+#                       allowlist, attached to themes.wakilabs.dev
+#                       hostname.
+#
+# What gets served:
+#   /                   -> studio SPA (index.html)
+#   /themes.json        -> consumer-facing bundle (mirrored)
+#   /dist/themes.json   -> consumer-facing bundle, /dist/ preserved
+#   /build-info.json    -> studio build metadata
+#
+# ----------------------------------------------------------------------------
+# Project 2: wakilabs-cdn  (anonymous artifact serving)
+# ----------------------------------------------------------------------------
+# Custom domain:        cdn.wakilabs.dev
+# Production branch:    main
+# Build command:        node scripts/build-bundle.mjs && node scripts/build-cdn.mjs
+# Build output dir:     dist/cdn
+# Root dir:             /
+# Node version:         20
+# Access policy:        anonymous read; CORS open via _headers
+#
+# What gets served:
+#   /                   -> landing page
+#   /waki-themes/themes.json  -> canonical bundle for consumers
+#   (future) /waki-shell/shell.json, etc.
+#
+# Both projects' app-level _headers files control cache + CORS.

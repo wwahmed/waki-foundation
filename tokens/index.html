@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>WakiMail — waki-themes demo</title>
+
+    <!-- Inline theme bootstrap. Mirrors the live app's pattern: read
+         localStorage("waki-mode") synchronously and apply the dark /
+         light class before <body> renders so `dark:` Tailwind variants
+         and our theme CSS don't flash an opposite-theme paint on the
+         first frame. -->
+    <script>
+      (function () {
+        try {
+          var m = localStorage.getItem("waki-mode");
+          var html = document.documentElement;
+          if (m === "dark") {
+            html.classList.add("dark");
+            html.classList.remove("light");
+          } else if (m === "light") {
+            html.classList.add("light");
+            html.classList.remove("dark");
+          } else if (
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+          ) {
+            html.classList.add("dark");
+          } else {
+            html.classList.add("light");
+          }
+        } catch (e) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+
+    <!-- Tailwind CDN — no build step. Configured for class-based dark
+         mode so our `dark:` utility prefixes match the printer-dashboard
+         convention. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: { extend: { fontFamily: { sans: ["Inter", "system-ui", "sans-serif"] } } },
+      };
+    </script>
+
+    <!-- Theme stylesheets. Order matters: base.css sets the typography
+         + switcher chrome, then the active theme stylesheet layers the
+         page bg and the .glass / .glass-elevated / .glass-bar surfaces.
+         The demo.js swaps the `href` of #theme-css to flip themes. -->
+    <link rel="stylesheet" href="styles/base.css" />
+    <link id="theme-css" rel="stylesheet" href="styles/glass-v2.css" />
+  </head>
+  <body class="overflow-hidden">
+    <!-- Theme + mode switcher (floating top-right). Active button is
+         marked via data-theme / data-mode for demo.js to track and
+         given the .active gradient pill in base.css. -->
+    <div class="switcher glass">
+      <button data-theme="flat">Flat</button>
+      <button data-theme="glass-v1">Glass</button>
+      <button data-theme="glass-v2">Glass +</button>
+      <button data-theme="glass-v3">Aurora</button>
+      <button data-theme="glass-extreme">Glass Extreme</button>
+      <button data-theme="frosted-glass">Frosted Glass</button>
+      <button data-theme="neumorphism">Soft UI</button>
+      <button data-theme="neon">Neon</button>
+      <button data-theme="ocean">Ocean</button>
+      <button data-theme="sunset">Sunset</button>
+      <button data-theme="forest">Forest</button>
+      <button data-theme="arctic">Arctic</button>
+      <button data-theme="lavender">Lavender</button>
+      <button data-theme="rose-gold">Rose Gold</button>
+      <button data-theme="midnight">Midnight</button>
+      <button data-theme="copper">Copper</button>
+      <button data-theme="emerald">Emerald</button>
+      <button data-theme="sakura">Sakura</button>
+      <button data-theme="slate-modern">Slate</button>
+      <button data-theme="nord">Nord</button>
+      <span class="divider"></span>
+      <button data-mode="light" aria-label="Light mode">☀️</button>
+      <button data-mode="dark" aria-label="Dark mode">🌙</button>
+    </div>
+
+    <!-- Top app bar -->
+    <header class="glass-bar fixed top-0 left-0 right-0 h-14 z-30 flex items-center px-4 gap-4">
+      <a class="flex items-center gap-2 font-bold no-underline">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-600 flex items-center justify-center text-white font-black shadow-lg shadow-violet-500/40">W</span>
+        <span class="text-lg tracking-tight">
+          <span class="text-violet-600 dark:text-violet-400">Waki</span>Mail
+        </span>
+      </a>
+      <div class="flex-1 max-w-xl mx-auto hidden sm:block">
+        <input
+          type="text"
+          placeholder="Search mail"
+          class="w-full px-4 py-2 rounded-full bg-black/[0.04] dark:bg-white/[0.06] border border-transparent text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/40 placeholder-current/60"
+        />
+      </div>
+      <div class="ml-auto sm:ml-0 flex items-center gap-3">
+        <button class="hidden sm:inline-flex items-center justify-center w-9 h-9 rounded-full hover:bg-black/[0.05] dark:hover:bg-white/[0.06] text-lg" aria-label="Notifications">🔔</button>
+        <span class="w-9 h-9 rounded-full bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center text-white font-bold shadow-md">W</span>
+      </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside
+      class="glass fixed left-3 top-[4.25rem] bottom-3 w-56 p-3 overflow-y-auto rounded-xl hidden md:block"
+    >
+      <button
+        class="w-full mb-3 px-4 py-2.5 rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white font-semibold shadow-lg shadow-violet-500/30 hover:shadow-xl hover:shadow-violet-500/40 transition-shadow"
+      >
+        + Compose
+      </button>
+      <nav class="space-y-1 text-sm">
+        <a class="flex items-center justify-between px-3 py-2 rounded-lg bg-violet-500/15 dark:bg-violet-500/20 font-semibold text-violet-700 dark:text-violet-200 cursor-pointer">
+          <span class="flex items-center gap-2">📥 Inbox</span>
+          <span class="text-xs">12</span>
+        </a>
+        <a class="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-black/[0.04] dark:hover:bg-white/[0.05] cursor-pointer">
+          <span class="flex items-center gap-2">⭐ Starred</span>
+          <span class="text-xs opacity-60">3</span>
+        </a>
+        <a class="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-black/[0.04] dark:hover:bg-white/[0.05] cursor-pointer">
+          <span class="flex items-center gap-2">🕒 Snoozed</span>
+        </a>
+        <a class="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-black/[0.04] dark:hover:bg-white/[0.05] cursor-pointer">
+          <span class="flex items-center gap-2">📤 Sent</span>
+        </a>
+        <a class="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-black/[0.04] dark:hover:bg-white/[0.05] cursor-pointer">
+          <span class="flex items-center gap-2">📝 Drafts</span>
+          <span class="text-xs opacity-60">2</span>
+        </a>
+        <a class="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-black/[0.04] dark:hover:bg-white/[0.05] cursor-pointer">
+          <span class="flex items-center gap-2">📦 Archive</span>
+        </a>
+        <a class="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-black/[0.04] dark:hover:bg-white/[0.05] cursor-pointer">
+          <span class="flex items-center gap-2">🗑️ Trash</span>
+        </a>
+      </nav>
+
+      <div class="mt-6 px-3 text-[10px] uppercase tracking-wider opacity-60 font-bold">Labels</div>
+      <nav class="mt-2 space-y-1 text-sm">
+        <a class="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-black/[0.04] dark:hover:bg-white/[0.05] cursor-pointer">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Personal
+        </a>
+        <a class="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-black/[0.04] dark:hover:bg-white/[0.05] cursor-pointer">
+          <span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span> Work
+        </a>
+        <a class="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-black/[0.04] dark:hover:bg-white/[0.05] cursor-pointer">
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Travel
+        </a>
+        <a class="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-black/[0.04] dark:hover:bg-white/[0.05] cursor-pointer">
+          <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> Receipts
+        </a>
+      </nav>
+
+      <!-- Storage card at the bottom of the sidebar — gives the chrome
+           something to anchor and shows .glass-elevated nesting inside
+           a parent .glass surface. -->
+      <div class="glass-elevated mt-6 p-3.5 rounded-xl">
+        <div class="text-[10px] uppercase tracking-wider opacity-60 font-bold mb-1">Storage</div>
+        <div class="text-sm font-semibold mb-2">7.2 GB <span class="opacity-50 font-normal">/ 15 GB</span></div>
+        <div class="h-1.5 rounded-full bg-black/[0.08] dark:bg-white/10 overflow-hidden">
+          <div class="h-full w-[48%] rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main grid: inbox list + detail pane -->
+    <main
+      class="md:ml-[15rem] mr-3 ml-3 mt-[4.25rem] mb-3 grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-3 h-[calc(100vh-5.25rem)]"
+    >
+      <!-- Inbox list -->
+      <section class="overflow-y-auto pr-1">
+        <div class="flex items-center justify-between px-1 mb-2">
+          <h2 class="text-xs uppercase font-bold tracking-wider opacity-70">Inbox · 12</h2>
+          <button class="text-xs font-semibold px-2 py-1 rounded-full hover:bg-black/[0.05] dark:hover:bg-white/[0.06]">Filter ▾</button>
+        </div>
+        <div class="space-y-2">
+          <article
+            class="glass email-row selected p-3.5 cursor-pointer flex gap-3"
+            data-from="Anna Park"
+            data-time="9:42 AM"
+            data-subject="Re: Q2 roadmap review"
+            data-body="Thanks for putting this together — I think the framing around the printer-side caching change is exactly right. Do you have a sense of how the migration would land on the existing customer fleet? I want to make sure we don't repeat the v0.6 hiccup. Happy to chat live this afternoon if useful."
+          >
+            <span class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-white font-bold shrink-0 shadow">AP</span>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-baseline justify-between gap-2">
+                <span class="font-semibold truncate">Anna Park</span>
+                <span class="text-xs opacity-60 shrink-0">9:42 AM</span>
+              </div>
+              <div class="text-sm font-medium truncate">Re: Q2 roadmap review</div>
+              <div class="text-xs opacity-70 truncate">
+                Thanks for putting this together — I think the framing around the printer-side caching change…
+              </div>
+              <div class="mt-1.5 flex items-center gap-1.5">
+                <span class="chip text-[10px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span> Work
+                </span>
+                <span class="chip text-[10px] font-semibold px-2 py-0.5 rounded-full">📎 2</span>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="glass email-row p-3.5 cursor-pointer flex gap-3"
+            data-from="Linear"
+            data-time="8:15 AM"
+            data-subject="3 new mentions in DASH-412"
+            data-body="You were mentioned in DASH-412 'CFS slot remap silently fails on K2'. The thread now has 3 replies. Latest: 'I think this is the BOX_MODIFY_TN issue — see Anna's comment on the wiki page'. Tap below to open in Linear."
+          >
+            <span class="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white font-bold shrink-0 shadow">L</span>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-baseline justify-between gap-2">
+                <span class="font-semibold truncate">Linear</span>
+                <span class="text-xs opacity-60 shrink-0">8:15 AM</span>
+              </div>
+              <div class="text-sm font-medium truncate">3 new mentions in DASH-412</div>
+              <div class="text-xs opacity-70 truncate">
+                You were mentioned in DASH-412 "CFS slot remap silently fails on K2". The thread now has 3 replies…
+              </div>
+              <div class="mt-1.5 flex items-center gap-1.5">
+                <span class="chip text-[10px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-violet-500"></span> Updates
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="glass email-row p-3.5 cursor-pointer flex gap-3"
+            data-from="Stripe"
+            data-time="Yesterday"
+            data-subject="Your March receipt is ready"
+            data-body="Here's your monthly receipt. Total charged this period: $128.40 across 3 active subscriptions. View itemised breakdown or update your payment method via the buttons below."
+          >
+            <span class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-blue-700 flex items-center justify-center text-white font-bold shrink-0 shadow">S</span>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-baseline justify-between gap-2">
+                <span class="font-semibold truncate">Stripe</span>
+                <span class="text-xs opacity-60 shrink-0">Yesterday</span>
+              </div>
+              <div class="text-sm font-medium truncate">Your March receipt is ready</div>
+              <div class="text-xs opacity-70 truncate">
+                Here's your monthly receipt. Total charged this period: $128.40 across 3 active subscriptions…
+              </div>
+              <div class="mt-1.5 flex items-center gap-1.5">
+                <span class="chip text-[10px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> Receipts
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="glass email-row p-3.5 cursor-pointer flex gap-3"
+            data-from="Diego Mendes"
+            data-time="Tue"
+            data-subject="Trip notes — Lisbon offsite"
+            data-body="Quick recap of the Lisbon offsite: agreed on the new pricing tier, deferred the auth rewrite to Q3, and agreed to ship the dark theme polish before EOM. Slides are in Drive, photos in the shared album. Let me know if I missed anything."
+          >
+            <span class="w-10 h-10 rounded-full bg-gradient-to-br from-rose-400 to-pink-600 flex items-center justify-center text-white font-bold shrink-0 shadow">DM</span>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-baseline justify-between gap-2">
+                <span class="font-semibold truncate">Diego Mendes</span>
+                <span class="text-xs opacity-60 shrink-0">Tue</span>
+              </div>
+              <div class="text-sm font-medium truncate">Trip notes — Lisbon offsite</div>
+              <div class="text-xs opacity-70 truncate">
+                Quick recap of the Lisbon offsite: agreed on the new pricing tier, deferred the auth rewrite to Q3…
+              </div>
+              <div class="mt-1.5 flex items-center gap-1.5">
+                <span class="chip text-[10px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Travel
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="glass email-row p-3.5 cursor-pointer flex gap-3"
+            data-from="GitHub"
+            data-time="Mon"
+            data-subject="Pull request #1142 ready for review"
+            data-body="@waki opened pull request #1142 'Glass theme polish (texture, glint, hover)' against main. 3 files changed, +89 −1. Reviewers requested: anna-park, diego-mendes."
+          >
+            <span class="w-10 h-10 rounded-full bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center text-white font-bold shrink-0 shadow">G</span>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-baseline justify-between gap-2">
+                <span class="font-semibold truncate">GitHub</span>
+                <span class="text-xs opacity-60 shrink-0">Mon</span>
+              </div>
+              <div class="text-sm font-medium truncate">Pull request #1142 ready for review</div>
+              <div class="text-xs opacity-70 truncate">
+                @waki opened pull request #1142 "Glass theme polish (texture, glint, hover)" against main…
+              </div>
+              <div class="mt-1.5 flex items-center gap-1.5">
+                <span class="chip text-[10px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-violet-500"></span> Updates
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="glass email-row p-3.5 cursor-pointer flex gap-3"
+            data-from="Mom"
+            data-time="Sun"
+            data-subject="Sunday dinner?"
+            data-body="Are you free Sunday for dinner? Dad picked up that chair you wanted from the antique shop — he's claiming credit. Bring an appetite. xo"
+          >
+            <span class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 to-amber-600 flex items-center justify-center text-white font-bold shrink-0 shadow">M</span>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-baseline justify-between gap-2">
+                <span class="font-semibold truncate">Mom</span>
+                <span class="text-xs opacity-60 shrink-0">Sun</span>
+              </div>
+              <div class="text-sm font-medium truncate">Sunday dinner?</div>
+              <div class="text-xs opacity-70 truncate">
+                Are you free Sunday for dinner? Dad picked up that chair you wanted from the antique shop…
+              </div>
+              <div class="mt-1.5 flex items-center gap-1.5">
+                <span class="chip text-[10px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Personal
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Detail pane -->
+      <article
+        id="email-detail"
+        class="glass-elevated p-6 rounded-xl space-y-4 overflow-y-auto hidden lg:block"
+      >
+        <div class="flex items-start gap-4">
+          <span
+            data-detail-initials
+            class="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-white font-bold shrink-0 shadow text-lg"
+            >AP</span
+          >
+          <div class="min-w-0 flex-1">
+            <div class="flex items-baseline justify-between gap-2 flex-wrap">
+              <h2 data-detail-subject class="text-xl font-bold tracking-tight">Re: Q2 roadmap review</h2>
+              <span data-detail-time class="text-xs opacity-60 shrink-0">9:42 AM</span>
+            </div>
+            <div class="text-sm opacity-80 mt-1">
+              From <span data-detail-from class="font-semibold">Anna Park</span>
+              <span class="opacity-50">&lt;anna@example.com&gt;</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t divider-soft pt-4 leading-relaxed text-sm">
+          <p data-detail-body>
+            Thanks for putting this together — I think the framing around the
+            printer-side caching change is exactly right. Do you have a sense of
+            how the migration would land on the existing customer fleet? I want
+            to make sure we don't repeat the v0.6 hiccup. Happy to chat live this
+            afternoon if useful.
+          </p>
+          <p class="mt-3">
+            On the timeline: I'd suggest we slot the cleanup PR in right after
+            the long weekend so we have a quiet window to land it. If you can
+            send me the rollout plan by EOD I'll review tomorrow morning.
+          </p>
+          <p class="mt-3 opacity-80">
+            Cheers,<br />Anna
+          </p>
+        </div>
+
+        <!-- Action bar -->
+        <div class="border-t divider-soft pt-4 flex items-center gap-2 flex-wrap">
+          <button
+            class="px-4 py-2 rounded-full bg-violet-600 text-white font-semibold text-sm shadow-md shadow-violet-500/30 hover:bg-violet-500"
+          >
+            ↩ Reply
+          </button>
+          <button
+            class="chip px-3 py-2 rounded-full font-medium text-sm hover:opacity-80"
+          >
+            ↪ Forward
+          </button>
+          <button
+            class="chip px-3 py-2 rounded-full font-medium text-sm hover:opacity-80"
+          >
+            📦 Archive
+          </button>
+          <button
+            class="chip px-3 py-2 rounded-full font-medium text-sm hover:opacity-80"
+          >
+            ⭐ Star
+          </button>
+          <span class="ml-auto"></span>
+          <button
+            class="chip px-3 py-2 rounded-full font-medium text-sm hover:opacity-80"
+            aria-label="More actions"
+          >
+            ⋯
+          </button>
+        </div>
+      </article>
+    </main>
+
+    <!-- Inline style for the selected-row look. Lives here (rather than
+         in each theme file) because the rule is theme-agnostic — every
+         theme uses the same accent ring to mark the current selection. -->
+    <style>
+      .email-row { transition: transform 120ms ease-out; }
+      .email-row:not(.selected):hover { transform: translateX(2px); }
+      .email-row.selected {
+        outline: 2px solid rgb(139, 92, 246);
+        outline-offset: -2px;
+      }
+    </style>
+
+    <script src="demo.js"></script>
+  </body>
+</html>

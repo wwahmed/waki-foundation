@@ -1,0 +1,3 @@
+# Cloudflare Pages SPA fallback. The studio is single-page; any
+# unknown route serves index.html so client-side state takes over.
+/*    /index.html   200

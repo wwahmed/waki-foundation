@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.DS_Store
+.vite/
+*.log
+*.tsbuildinfo
+
+# Bundle is mirrored at build time; never check the copy in.
+public/themes.json
+public/dist/themes.json
+public/build-info.json

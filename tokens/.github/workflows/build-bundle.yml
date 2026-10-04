@@ -1,0 +1,51 @@
+name: build-bundle
+
+# Auto-rebuild dist/themes.json on every push to main so the bundle's
+# embedded gitSha always matches HEAD. Consumers (waki-brain,
+# printer-dashboard) compare gitSha to detect upstream theme changes.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "styles/**"
+      - "family/**"
+      - "dist/family.json"
+      - "src/themes/**"
+      - "scripts/build-bundle.mjs"
+      - "package.json"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # We need write access for the auto-commit step.
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Build bundle
+        run: node scripts/build-bundle.mjs
+
+      - name: Commit rebuilt bundle if changed
+        run: |
+          if git diff --quiet dist/themes.json; then
+            echo "No changes to dist/themes.json; nothing to publish."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add dist/themes.json
+            # [skip ci] keeps this commit from re-triggering the workflow
+            # in a loop. The bot's auto-commit is bundle-only; nothing
+            # else needs CI to react to it.
+            git commit -m "chore: publish dist/themes.json [skip ci]"
+            git push
+          fi
