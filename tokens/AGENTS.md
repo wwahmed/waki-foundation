@@ -8,7 +8,7 @@ The central theme catalog and visual tokens across Waki applications.
 
 - Conventions version 1. Registry, policies and templates live in `~/workspaces/wakilabs`
   (`registry/projects.json`, `policies/*.yaml`, prose in `docs/standards/`).
-- Canonical checkout: `~/workspaces/waki-foundation/tokens`. Until the Phase 2b move it lives at `~/workspaces/wakilabs/waki-themes`.
+- Canonical checkout: `~/workspaces/waki-foundation/tokens`.
 - Foundation pin: not pinned yet (recorded by `waki adopt`).
 
 Three rules:

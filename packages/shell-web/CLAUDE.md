@@ -8,7 +8,7 @@ Shared web application shell and navigation patterns.
 
 - Conventions version 1. Registry, policies and templates live in `~/workspaces/wakilabs`
   (`registry/projects.json`, `policies/*.yaml`, prose in `docs/standards/`).
-- Canonical checkout: `~/workspaces/waki-foundation/packages/shell-web`. Until the Phase 2b move it lives at `~/workspaces/wakilabs/waki-shell`.
+- Canonical checkout: `~/workspaces/waki-foundation/packages/shell-web`.
 - Foundation pin: not pinned yet (recorded by `waki adopt`).
 
 Three rules:

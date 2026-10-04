@@ -1,0 +1,8 @@
+id: waki-foundation
+name: waki-foundation
+displayName: "Waki Foundation"
+archetype: monorepo
+family: foundation
+conventionsVersion: 1
+foundationPin: null
+registry: ~/workspaces/wakilabs/registry/projects.json
